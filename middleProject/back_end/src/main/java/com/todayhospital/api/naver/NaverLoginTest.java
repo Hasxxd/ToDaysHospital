@@ -22,6 +22,9 @@ public class NaverLoginTest {
      * String testCode = "받은 code 값 입력";
      * String accessToken = loginService.getAccessToken(testCode, testState);
      * System.out.println("Access Token: " + accessToken);
+     * asdasdsdasda
+     * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+     * 
      */
   }
 }
