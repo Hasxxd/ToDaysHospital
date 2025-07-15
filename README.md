@@ -87,5 +87,5 @@ $ mvn tomcat7:run
 ## 협업 및 운영 전략
 
 - 개발 브랜치 기준 GitHub 관리
-- 산출물은 SVN 및 Google Drive 연계 보관 예정
+- 산출물은 SVN 및 One Drive, 카카오톡 연계 백업
 - 오전/오후반 프로젝트 환경 통합 검토 중
