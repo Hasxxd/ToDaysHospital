@@ -1,0 +1,114 @@
+#### 파이썬 라이브러리 목록, 250713
+# ========================
+# 데이터 처리 및 고속 분석
+# ========================
+pandas
+numpy
+polars                  # pandas 대체 고속 엔진
+pyarrow                 # parquet, feather 등 고속 포맷 지원
+
+# ===================
+# 오라클 및 DB 연동
+# ===================
+sqlalchemy
+cx_Oracle               # Oracle 11g ~ 19c 용
+oracledb                # Oracle 21c 이상 지원 공식 드라이버
+
+# ===================
+# 시각화 및 대시보드
+# ===================
+plotly
+dash
+matplotlib
+seaborn
+altair
+
+# ======================
+# 웹 크롤링 및 통신 연계
+# ======================
+requests
+httpx
+beautifulsoup4
+selenium
+fake-useragent
+
+# =======================
+# 비동기 · 병렬처리 · 성능
+# =======================
+asyncio
+aiohttp
+nest_asyncio
+multiprocess
+tqdm
+numba
+
+# ======================
+# 파일 · 경로 · 설정 처리
+# ======================
+openpyxl
+xlrd
+pathlib
+python-dotenv
+pyyaml
+
+# ========================
+# JSON · XML 변환 및 연동
+# ========================
+ujson
+xmltodict
+
+# =======================
+# 스케줄링 · 자동화 유틸
+# =======================
+schedule
+apscheduler
+watchdog
+
+# ==========================
+# 머신러닝 · 딥러닝 · 임베딩
+# ========================== pip freeze > requirements-lock.txt
+scikit-learn
+tensorflow
+torch
+torchvision
+torchaudio
+xgboost
+lightgbm
+transformers
+sentence-transformers
+
+# =======================
+# 웹 서버 · API · 템플릿
+# =======================
+flask
+fastapi
+uvicorn
+jinja2
+
+# =====================
+# 테스트 · 로깅 · 디버깅
+# =====================
+loguru
+pytest
+rich
+icecream
+
+# ======================
+# 코드 품질 · 생산성 향상
+# ======================
+pydantic
+typer
+black
+ruff
+
+# ========================
+# 데이터 프로파일링 · EDA
+# ========================
+pandas-profiling
+ydata-profiling
+
+# =======================
+# Jupyter 노트북 환경용
+# =======================
+notebook
+jupyterlab
