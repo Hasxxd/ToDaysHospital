@@ -25,6 +25,7 @@
     }
   ],
   "java.errors.incompleteClasspath.severity": "warning",
-  "java.languageServer.launchMode": "Standard"
+  "java.languageServer.launchMode": "Standard",
+  "java.debug.settings.onBuildFailureProceed": true
 }
   
