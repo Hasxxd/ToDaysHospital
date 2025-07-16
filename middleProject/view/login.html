@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Google Login</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+
+      window.location.href = 'https://google.com';  //다음 넘어갈 html페이지넣기
+    }
+  </script>
+</head>
+<body>
+  <div id="g_id_onload"
+      data-client_id="298565234749-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse">
+  </div>
+
+  <div class="g_id_signin"></div>
+</body>
+</html>
