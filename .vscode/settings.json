@@ -14,18 +14,24 @@
     "org.mockito.Answers.*"
   ],
   "java.project.referencedLibraries": [
-    "lib//**//*.jar",
-    "WEB-INF//libs//**//*.jar"
+    "lib/**/*.jar",
+    "WEB-INF/libs/**/*.jar"
   ],
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-17",
-      "path": "C://Program Files//Java//jdk-17",
+      "path": "C:/Program Files/Java/jdk-17",
       "default": true
     }
   ],
   "java.errors.incompleteClasspath.severity": "warning",
   "java.languageServer.launchMode": "Standard",
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+
+  "editor.detectIndentation": false,
+  "[java]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true
+  }
 }
-  

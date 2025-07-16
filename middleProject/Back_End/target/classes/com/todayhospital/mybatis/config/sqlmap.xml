@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- <typeAlias type="com.todayhospital.dto.GongjiDTO" alias="gongji" /> -->
 		<typeAlias type="com.todayhospital.dto.MemberDTO" alias="member" />		
 		<typeAlias type="com.todayhospital.dto.ZipcodeDTO" alias="zipcode" />
-	    <typeAlias type="com.todayhospital.dto.BbsDTO" alias="bbs" />
+	  <typeAlias type="com.todayhospital.dto.BbsDTO" alias="bbs" />
 		<typeAlias type="com.todayhospital.dto.FileDTO" alias="fileDto" />
 	</typeAliases>
 
@@ -47,8 +47,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 							리소스 관리: 동시에 사용할 수 있는 커넥션 수를 제한할 수 있어 과도한 부하 방지.
 							안정성: 재사용 가능한 커넥션 제공으로 시스템 안정성 증가.
 							
-					2. dataSource: 데이터베이스에 연결하기 위한 설정을 담고 있는 요소.
-       		-->
+					2. dataSource: 데이터베이스에 연결하기 위한 설정을 담고 있는 요소. -->
 				<property name="driver" value="oracle.jdbc.OracleDriver" />
 				<property name="url"
 					value="jdbc:oracle:thin:@112.220.114.31:1521:xe" />
