@@ -111,7 +111,7 @@
                 // 오류 메시지에 따라 http://127.0.0.1:500을 추가합니다.
                 if (currentOrigin === 'http://127.0.0.1:8080') {
                     redirectUri = currentOrigin + CALLBACK_PATH; // 로컬 개발 환경용 (8080 포트)
-                } else if (currentOrigin === 'http://127.0.0.1:5500/') { // 추가된 조건
+                } else if (currentOrigin === 'http://127.0.0.1:5500') { // 추가된 조건
                     redirectUri = currentOrigin + CALLBACK_PATH; // 로컬 개발 환경용 (500 포트)
                 } else if (currentOrigin === 'https://hosday.kro.kr') {
                     redirectUri = currentOrigin + CALLBACK_PATH; // 운영 환경용
