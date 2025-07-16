@@ -6,36 +6,47 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    let isRecaptchaVerified = false;
+    let jwtToken = null;
 
     function handleCredentialResponse(response) {
-      if (!isRecaptchaVerified) {
-        alert("먼저 reCAPTCHA 인증을 완료해주세요.");
+      jwtToken = response.credential;
+      document.getElementById("recaptcha-container").style.display = "block";
+    }
+
+    function verifyAndSubmit() {
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (!recaptchaResponse) {
+        alert("reCAPTCHA 인증을 완료해주세요.");
         return;
       }
 
-      console.log("JWT: " + response.credential);
+      if (!jwtToken) {
+        alert("먼저 Google 로그인을 완료해주세요.");
+        return;
+      }
+
+      console.log("JWT: " + jwtToken);
       window.opener.location.href = 'home.html';
       window.close();
-    }
-
-    function recaptchaCallback() {
-      isRecaptchaVerified = true;
-      document.getElementById('google-login-container').style.display = 'block';
     }
   </script>
 </head>
 <body>
-  <form>
-    <div class="g-recaptcha" data-sitekey="6LcWLIUrAAAAAPs1Nj_0_lYhJ3sE_tfDvzVTUnAE" data-callback="recaptchaCallback"></div>
-  </form>
+  <!-- Google Login -->
+  <div id="g_id_onload"
+       data-client_id="298565234749-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin"></div>
 
-  <div id="google-login-container" style="display:none;">
-    <div id="g_id_onload"
-         data-client_id="298565234749-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin"></div>
+  <!-- reCAPTCHA: initially hidden -->
+  <div id="recaptcha-container" style="display:none; margin-top: 20px;">
+    <form onsubmit="verifyAndSubmit(); return false;">
+      <div class="g-recaptcha"
+           data-sitekey="6LcWLIUrAAAAAPs1Nj_0_lYhJ3sE_tfDvzVTUnAE"></div>
+      <br/>
+      <button type="submit">확인</button>
+    </form>
   </div>
 </body>
 </html>
