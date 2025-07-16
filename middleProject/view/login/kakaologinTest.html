@@ -113,7 +113,7 @@
                     redirectUri = currentOrigin + CALLBACK_PATH; // 로컬 개발 환경용 (8080 포트)
                 } else if (currentOrigin === 'http://127.0.0.1:5500/') { // 추가된 조건
                     redirectUri = currentOrigin + CALLBACK_PATH; // 로컬 개발 환경용 (500 포트)
-                } else if (currentOrigin === 'https://hosday.kro.kr') {
+                } else if (currentOrigin === 'https://hosday.kro.kr/Kakao-CallBack;') {
                     redirectUri = currentOrigin + CALLBACK_PATH; // 운영 환경용
                 } else {
                     // 지원되지 않는 환경이거나 기본/오류 처리
