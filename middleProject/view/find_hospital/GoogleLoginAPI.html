@@ -2,38 +2,41 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Google Login</title>
+  <title>Google Login with reCAPTCHA</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    let jwtToken = null;
+    let isRecaptchaVerified = false;
 
     function handleCredentialResponse(response) {
-      jwtToken = response.credential;
-    }
-
-    function verifyAndSubmit() {
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        alert("reCAPTCHA 확인을 완료해주세요.");
+      if (!isRecaptchaVerified) {
+        alert("먼저 reCAPTCHA 인증을 완료해주세요.");
         return;
       }
 
-      if (!jwtToken) {
-        alert("Google 로그인을 먼저 완료해주세요.");
-        return;
-      }
-
+      console.log("JWT: " + response.credential);
       window.opener.location.href = 'home.html';
       window.close();
+    }
+
+    function recaptchaCallback() {
+      isRecaptchaVerified = true;
+      document.getElementById('google-login-container').style.display = 'block';
     }
   </script>
 </head>
 <body>
-  <form onsubmit="verifyAndSubmit(); return false;">
-    <div class="g-recaptcha" data-sitekey="6LcWLIUrAAAAAPs1Nj_0_lYhJ3sE_tfDvzVTUnAE"></div>
-    <br/>
-    <button type="submit">로그인 완료</button>
+  <form>
+    <div class="g-recaptcha" data-sitekey="6LcWLIUrAAAAAPs1Nj_0_lYhJ3sE_tfDvzVTUnAE" data-callback="recaptchaCallback"></div>
   </form>
 
-  <div id="g_i_
+  <div id="google-login-container" style="display:none;">
+    <div id="g_id_onload"
+         data-client_id="298565234749-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"></div>
+  </div>
+</body>
+</html>
+
