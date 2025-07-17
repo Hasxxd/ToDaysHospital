@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>오늘의 병원</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: white;
+    }
+
+    .wrapper {
+      width: 1488px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .menu-button {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      padding: 10px 20px;
+      border: 2px solid #000;
+      background: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .auth-buttons {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+    }
+
+    .auth-buttons button {
+      padding: 8px 16px;
+      font-weight: bold;
+      margin-left: -5px;
+      border: 1px solid #333;
+      background-color: #e0e0f8;
+      cursor: pointer;
+    }
+
+    .auth-buttons button:last-child {
+      background-color: white;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 80px;
+    }
+
+    .logo-text {
+      font-size: 48px;
+      color: #2bb4c9;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .slogan {
+      margin-top: 10px;
+      font-size: 24px;
+      color: #00c8e0;
+      font-weight: bold;
+    }
+
+    .search {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .search input {
+      width: 600px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: 2px solid #666;
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+      padding: 0 30px;
+    }
+
+    .card {
+      width: 230px;
+      height: 250px;
+      border: 8px solid #c0e0e5;
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      flex-shrink: 0;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      word-break: keep-all;
+    }
+
+    .card button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .calendar-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calendar-card img {
+      width: 40px;
+      margin-top: 10px;
+    }
+
+    .search-doctor input {
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 10px;
+    }
+
+    .search-doctor button {
+      padding: 10px 30px;
+      background-color: #0052cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .round-card {
+      border: 8px solid #c0e0e5;
+      background-color: white;
+      width: 230px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .round-card div {
+      width: 160px;
+      height: 50px;
+      border-radius: 25px;
+      background-color: white;
+      border: 2px solid #aaa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <button class="menu-button">☰ 메뉴</button>
+
+    <div class="auth-buttons">
+      <button onclick="window.open('../login/kakaologinTest.html', '_blank', 'width=600,height=700');">로그인</button>
+       <button onclick="window.open('../googleAPI/GoogleLoginAPI.html, '_blank', 'width=600,height=700');">로그인2</button>
+      <button>회원가입</button>
+    </div>
+
+    <header>
+      <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/3203/3203071.png" alt="의사 아이콘" />
+        <div class="logo-text">오늘의<br>병원</div>
+      </div>
+      <div class="slogan">지금 예약하고 오늘 진료받자!</div>
+    </header>
+
+    <div class="search">
+      <input type="text" placeholder="search" />
+    </div>
+
+    <div class="main-content">
+      <!-- 1 -->
+      <div class="card">
+        <h3>홈페이지<br>이용 가이드</h3>
+        <button>확인하기</button>
+      </div>
+
+      <!-- 2 -->
+      <div class="card calendar-card">
+        <h3>예약현황조회</h3>
+        <p>진료예약현황을 조회</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="달력" />
+      </div>
+
+      <!-- 3 -->
+      <div class="card search-doctor">
+        <h3>의료진/진료과 찾기</h3>
+        <input type="text" placeholder="의료진, 진료과 입력" />
+        <!-- 누르면 지도로 이동 파일 이름 maptest.html -->
+                <!-- 지도로 이동하는 href가 필요해서 버튼태그안에 넣어뒀습니다 -->
+<button onclick="window.location.href='../find_hospital/maptest.html'">찾기</button>
+
+
+
+      </div>
+
+      <!-- 4~6 -->
+      <div class="round-card">
+        <dvi>자료실</div>
+        <div>공지사항</div>
+        <div>게시판</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
