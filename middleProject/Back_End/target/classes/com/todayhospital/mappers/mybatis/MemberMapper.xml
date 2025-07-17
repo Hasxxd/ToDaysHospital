@@ -8,7 +8,7 @@
     <select id="selectAllMembers" resultType="com.todayhospital.dto.MemberDTO">
         SELECT 
             MEM_ID, MEM_LOGIN_ID, MEM_PW, MEM_NAME, 
-            TO_CHAR(MEM_BIR, 'YYYY-MM-DD') AS memBir,
+            TO_CHAR(MEM_BIR, 'YYYY-MM-DD') AS mem_Bir,
             MEM_REGNO1, MEM_REGNO2, MEM_ZIP, 
             MEM_ADDR1, MEM_ADDR2, MEM_HOMETEL, MEM_HP,
             MEM_MAIL, MEM_JOB, MEM_STATUS
