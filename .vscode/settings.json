@@ -14,8 +14,11 @@
     "org.mockito.Answers.*"
   ],
   "java.project.referencedLibraries": [
-    "libs/**/*.jar",
-    "WEB-INF/libs/**/*.jar"
+    "${workspaceFolder}/libs/**/*.jar",
+    "${workspaceFolder}/lib/**/*.jar",
+    "${workspaceFolder}/middleProject/Back_End/src/main/webapp/WEB-INF/libs/**/*.jar",
+    "${workspaceFolder}/middleProject/Back_End/src/main/webapp/WEB-INF/lib/**/*.jar"
+  
   ],
   "java.configuration.runtimes": [
     {
