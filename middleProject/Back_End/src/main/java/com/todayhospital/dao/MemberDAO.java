@@ -1,13 +1,24 @@
 package com.todayhospital.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import com.todayhospital.dto.MemberDTO;
+import com.todayhospital.mappers.MemberMapper;
 
-public interface MemberDAO {
-    boolean existsById(String id); // ID 중복 체크용
+public class MemberDAO {
+    private SqlSessionFactory sqlSessionFactory;
 
-    MemberDTO loginCheck(String id, String pw); // 로그인 검증
+    public MemberDAO(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
 
-    MemberDTO getMember(String id); // 회원정보 조회
-
-    int updatePassword(String id, String newPw); // 비밀번호 변경
+    public List<MemberDTO> getAllMembers() {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            MemberMapper mapper = session.getMapper(MemberMapper.class);
+            return mapper.selectAllMembers();
+        }
+    }
 }
