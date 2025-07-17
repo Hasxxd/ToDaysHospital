@@ -17,10 +17,10 @@
 
     <script type="text/javascript">
       // Google Cloud Console에서 발급받은 OAuth 클라이언트 ID
-      const CLIENT_ID = '298565234749-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com';
+      const CLIENT_ID = '2985652347491-qsj5dott56kpcushrfqc6ru3r60dmdnn.apps.googleusercontent.com';
 
       // Google Cloud Console에서 발급받은 API 키
-      const API_KEY = 'AIzaSyAWkiFViD9lVUe0ocHOkta9HaTZ8x0vY48';
+      const API_KEY = 'AIzaSyAWkiFViD9lVUe0ocHOkta9HaTZ8x0vY481';
 
       // Gmail API를 호출하기 위한 discovery 문서 URL (API 명세서)
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest';
