@@ -1,7 +1,5 @@
 package com.todayhospital.service;
 
-import java.util.List;
-
 import com.todayhospital.dto.MemberDTO;
 
 public interface MemberService {

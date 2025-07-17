@@ -47,7 +47,7 @@
 
     <!-- 정보수정 완료 -->
     <update id="medit_ok">
-          update memberMvc set mem_pwd=#{mem_pwd}, mem_name=#{mem_name}, mem_zip=#{mem_zip}, mem_zip2=#{mem_zip2},mem_addr=#{mem_addr}, mem_addr2=#{mem_addr2}, mem_phone01=#{mem_phone01},mem_phone02=#{mem_phone02},mem_phone03=#{mem_phone03}, mail_id=#{mail_id}, mail_domain=#{mail_domain} where mem_id=#{mem_id}
+             update memberMvc set mem_pwd=#{mem_pwd}, mem_name=#{mem_name}, mem_zip=#{mem_zip}, mem_zip2=#{mem_zip2},mem_addr=#{mem_addr}, mem_addr2=#{mem_addr2}, mem_phone01=#{mem_phone01},mem_phone02=#{mem_phone02},mem_phone03=#{mem_phone03}, mail_id=#{mail_id}, mail_domain=#{mail_domain} where mem_id=#{mem_id}
     </update>
 
     <!-- 회원탈퇴 -->
