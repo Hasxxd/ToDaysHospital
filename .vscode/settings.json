@@ -23,17 +23,17 @@
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-17",
-      "path": "C:/Program Files/Java/jdk-17/",
+      "path": "C:/Program Files/Java/jdk-17",
       "default": true
     },
     {
       "name": "JavaSE-21",
-      "path": "C:/Program Files/Java/jdk-21/",
+      "path": "C:/Program Files/Java/jdk-21",
       "default": false
     },
     {
       "name": "JavaSE-1.8",
-      "path": "C:/Program Files/Java/jdk1.8.0_191/",
+      "path": "C:/Program Files/Java/jdk1.8.0_191",
       "default": false
     }
   ],
