@@ -1,16 +1,13 @@
 package com.todayhospital.dao;
 
-import java.util.List;
 import com.todayhospital.dto.MemberDTO;
 
 public interface MemberDAO {
+    boolean existsById(String id); // ID 중복 체크용
 
-  MemberDTO idCheck(String id);
+    MemberDTO loginCheck(String id, String pw); // 로그인 검증
 
-  MemberDTO loginCheck(String id);
+    MemberDTO getMember(String id); // 회원정보 조회
 
-  MemberDTO getMember(String id);
-
-  MemberDTO pwdMember(MemberDTO m);
-
+    int updatePassword(String id, String newPw); // 비밀번호 변경
 }

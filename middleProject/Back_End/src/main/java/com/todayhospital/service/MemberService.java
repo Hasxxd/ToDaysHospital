@@ -5,11 +5,11 @@ import java.util.List;
 import com.todayhospital.dto.MemberDTO;
 
 public interface MemberService {
-  MemberDTO idCheck(String id);
+    MemberDTO idCheck(String id);
 
-  MemberDTO pwdMember(MemberDTO m);
+    MemberDTO pwdMember(MemberDTO m);
 
-  MemberDTO loginCheck(String id);
+    MemberDTO loginCheck(String id);
 
-  MemberDTO getMember(String id);
+    MemberDTO getMember(String id);
 }
