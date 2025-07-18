@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>오늘의 병원</title>
+  <link rel="stylesheet" href="../css/시작화면.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <button class="menu-button">☰ 메뉴</button>
+
+    <div class="auth-buttons">
+      <button>로그인</button>
+      <button id="signupButton">회원가입</button>
+    </div>
+
+    <header>
+      <div class="logo">
+        <img src="../images/todayhos.png" alt="오늘의 병원 로고" />
+      </div>
+      <div class="slogan">지금 예약하고 오늘 진료받자!</div>
+    </header>
+
+    <div class="search">
+      <input type="text" placeholder="search" />
+    </div>
+
+    <div class="main-content">
+      <div class="card">
+        <h3>홈페이지<br>이용 가이드</h3>
+        <button>확인하기</button>
+      </div>
+
+      <div class="card calendar-card">
+        <h3>예약현황조회</h3>
+        <p>진료예약현황을 조회</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="달력" />
+      </div>
+
+      <div class="card search-doctor">
+        <h3>내가 갈 병원 찾기</h3>
+        <input type="text" placeholder="병원 찾기" />
+        <button>찾기</button>
+      </div>
+
+      <div class="round-card">
+        <div>자료실</div>
+        <div>공지사항</div>
+        <div>커뮤니티</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <iframe id="signupIframe" src="signup.html" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <div id="successModal" class="modal">
+    <div class="modal-content success-content">
+      <h2>회원가입이 완료되었습니다!</h2>
+      <p>잠시 후 메인 화면으로 돌아갑니다.</p>
+      </div>
+  </div>
+
+  <script src="../js/signup.js"></script>
+
+</body>
+</html>
