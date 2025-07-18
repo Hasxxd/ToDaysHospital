@@ -1,0 +1,49 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 20px;
+  background-color: #f0f4f8;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px;
+  background-color: #2a9df4;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1c7cd6;
+}
+.find-links {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.find-links a {
+  color: #2a9df4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.find-links a:hover {
+  text-decoration: underline;
+}

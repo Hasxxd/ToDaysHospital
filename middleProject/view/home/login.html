@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인 - 오늘의 병원</title>
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+  <h2>로그인</h2>
+  <form onsubmit="return handleLogin(event)">
+    <input type="text" id="username" placeholder="아이디" required />
+    <input type="password" id="password" placeholder="비밀번호" required />
+    <button type="submit">로그인</button>
+  </form>
+
+  <div class="find-links">
+    <a href="#" id="findId">아이디 찾기</a> | 
+    <a href="#" id="findPassword">비밀번호 찾기</a>
+  </div>
+
+  <script src="../js/login.js"></script>
+</body>
+</html>
