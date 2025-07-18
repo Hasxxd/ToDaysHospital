@@ -26,18 +26,18 @@ public class MemberDTO {
     private String mem_job; // 직업
     private String mem_status; // 회원 상태 (enum 처리 가능 영역)
 
-    // // -------------------------------
-    // // 회원 탈퇴 관련 필드 (관리자 페이지 용도)
-    // // -------------------------------
-    // private int mem_state; // 회원 상태: 가입회원 1, 탈퇴회원 2
-    // private String mem_delcont; // 탈퇴 사유
-    // private String mem_deldate; // 탈퇴 일자 (문자열, 추후 Date로 개선 가능)
+    // -------------------------------
+    // 회원 탈퇴 관련 필드 (관리자 페이지 용도)
+    // -------------------------------
+    private int mem_state; // 회원 상태: 가입회원 1, 탈퇴회원 2
+    private String mem_delcont; // 탈퇴 사유
+    private String mem_deldate; // 탈퇴 일자 (문자열, 추후 Date로 개선 가능)
 
-    // // -------------------------------
-    // // 페이징 처리용 필드 (회원 리스트 조회 시 사용)
-    // // -------------------------------
-    // private int startrow; // 페이징 시작 행 번호
-    // private int endrow; // 페이징 끝 행 번호
+    // -------------------------------
+    // 페이징 처리용 필드 (회원 리스트 조회 시 사용)
+    // -------------------------------
+    private int startrow; // 페이징 시작 행 번호
+    private int endrow; // 페이징 끝 행 번호
 
     // -------------------------------
     // 검색 처리용 필드 (회원 검색 기능에서 사용)
