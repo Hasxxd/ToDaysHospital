@@ -10,7 +10,7 @@
     <button class="menu-button">☰ 메뉴</button>
 
     <div class="auth-buttons">
-      <button>로그인</button>
+      <button onclick="openLoginPopup()">로그인</button>
       <button id="signupButton">회원가입</button>
     </div>
 
@@ -51,21 +51,15 @@
     </div>
   </div>
 
-  <div id="signupModal" class="modal">
+  <!-- 회원가입 모달 -->
+  <div id="signupModal" class="modal" style="display:none;">
     <div class="modal-content">
       <span class="close-button">&times;</span>
-      <iframe id="signupIframe" src="signup.html" frameborder="0"></iframe>
+      <iframe id="signupIframe" src="signup.html" frameborder="0" style="width:100%; height:400px;"></iframe>
     </div>
   </div>
 
-  <div id="successModal" class="modal">
-    <div class="modal-content success-content">
-      <h2>회원가입이 완료되었습니다!</h2>
-      <p>잠시 후 메인 화면으로 돌아갑니다.</p>
-      </div>
-  </div>
-
+  <script src="../js/login.js"></script>
   <script src="../js/signup.js"></script>
-
 </body>
 </html>
