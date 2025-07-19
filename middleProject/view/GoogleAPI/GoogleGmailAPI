@@ -87,7 +87,7 @@
 
           // 메일 보내기 함수 호출
           await sendEmail(
-            '받는사람@예시.com',  // 수신자 이메일 주소 (실제 이메일로 변경 필요)
+            'lkyusang8626@gmail.com',  // 수신자 이메일 주소 (실제 이메일로 변경 필요)
             'HosDay 이메일 인증',   // 메일 제목
             `<p>안녕하세요! 아래 링크를 클릭해 이메일 인증을 완료해주세요.</p>
              <p><a href="https://hosday.kro.kr/verify?token=abc123">이메일 인증하기</a></p>` // HTML 메일 본문
