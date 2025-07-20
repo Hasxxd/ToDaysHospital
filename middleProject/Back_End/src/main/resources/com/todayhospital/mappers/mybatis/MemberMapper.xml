@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todayhospital.mappers.MemberMapper">
+    <!-- 
+        파이프라인 테스트용 회원 전체 조회
+        실제 구현 테이블과 분리되어 있음(추후 통합)
+    -->
+    <select id="selectAllMembers" resultType="com.todayhospital.dto.MemberDTO">
+        SELECT 
+            MEM_ID, MEM_LOGIN_ID, MEM_PW, MEM_NAME, 
+            TO_CHAR(MEM_BIR, 'YYYY-MM-DD') AS mem_bir,
+            MEM_REGNO1, MEM_REGNO2, MEM_ZIP, 
+            MEM_ADDR1, MEM_ADDR2, MEM_HOMETEL, MEM_HP,
+            MEM_MAIL, MEM_JOB, MEM_STATUS
+        FROM MEMBER_TEST
+    </select>
+
+    <!-- 
+        로그인 처리 쿼리
+        - 사용 경로: /login_ok.do → LoginOKController → loginCheck()
+        - 사용 테이블: MEMBER_TEST 
+    -->
+    <select id="loginCheck" resultType="com.todayhospital.dto.MemberDTO">
+        SELECT *
+        FROM MEMBER_TEST
+        WHERE member_id = #{mem_login_id}
+            AND password = #{mem_pw}
+    </select>
+
+</mapper>
