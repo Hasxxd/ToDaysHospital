@@ -15,7 +15,7 @@
             MEM_REGNO1, MEM_REGNO2, MEM_ZIP, 
             MEM_ADDR1, MEM_ADDR2, MEM_HOMETEL, MEM_HP,
             MEM_MAIL, MEM_JOB, MEM_STATUS
-        FROM MEMBER_TEST
+        FROM MEMBER
     </select>
 
     <!-- 
@@ -25,7 +25,7 @@
     -->
     <select id="loginCheck" resultType="com.todayhospital.dto.MemberDTO">
         SELECT *
-        FROM MEMBER_TEST
+        FROM MEMBER
         WHERE member_id = #{mem_login_id}
             AND password = #{mem_pw}
     </select>
