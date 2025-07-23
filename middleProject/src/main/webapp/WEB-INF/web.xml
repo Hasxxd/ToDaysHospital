@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-                             http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+          version="2.5">
 
   <display-name>ToDaysHospital WebApp</display-name>
 
-  <!-- [1] 인코딩 필터 -->
+  <!-- [1] 인코딩 필터 설정 -->
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
@@ -17,7 +17,7 @@
     </init-param>
     <init-param>
       <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
+      <param-value>true</param-value> <!-- 필수 추가: 톰캣 경고 해결 -->
     </init-param>
   </filter>
 
@@ -26,20 +26,21 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!-- [2] 모든 .do 요청은 FrontController가 처리 -->
+  <!-- [2] MFrontController 등록 -->
   <servlet>
     <servlet-name>FrontController</servlet-name>
     <servlet-class>com.todayhospital.controller.MFrontController</servlet-class>
+    <load-on-startup>1</load-on-startup> <!-- 서버 시작 시 초기화 -->
   </servlet>
 
   <servlet-mapping>
     <servlet-name>FrontController</servlet-name>
-    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.do</url-pattern> <!-- 모든 .do 요청은 MFrontController로 -->
   </servlet-mapping>
 
-  <!-- [3] 초기 진입 페이지 -->
+  <!-- [3] 초기 진입 페이지 설정 -->
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file> <!-- 정적 JSP 직접 호출 시 사용 -->
   </welcome-file-list>
 
 </web-app>
