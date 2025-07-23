@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>병원 예약</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #1e90ff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #1e90ff;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0073cc;
+    }
+
+    @media (max-width: 500px) {
+      .form-container {
+        padding: 25px 20px;
+      }
+    }
+
+    .hospital-warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>📝 병원 예약하기</h2>
+
+    <div id="warning" class="hospital-warning" style="display: none;">
+      ❗ 잘못된 병원 ID입니다. 이전 페이지로 돌아가 주세요.
+    </div>
+
+    <form id="reservationForm" action="submit-reservation.html" method="get" style="display: none;">
+      <label for="hospital">병원 이름</label>
+      <input type="text" id="hospital" name="hospital" readonly />
+
+      <label for="doctor">의사 선택</label>
+      <select id="doctor" name="doctor" required>
+        <!-- JavaScript로 채워짐 -->
+      </select>
+
+      <label for="date">예약 날짜</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="time">예약 시간</label>
+      <input type="time" id="time" name="time" required />
+
+      <label for="symptom">증상 내용</label>
+      <textarea id="symptom" name="symptom" rows="4" placeholder="간단한 증상이나 요청사항을 입력하세요."></textarea>
+
+      <button type="submit">예약 신청</button>
+    </form>
+  </div>
+
+  <script>
+    // 병원 데이터 (ID별)
+    const hospitalData = {
+      1: {
+        name: "대전 선병원",
+        doctors: ["김진수", "박혜민", "오은별"]
+      },
+      2: {
+        name: "대전병원",
+        doctors: ["이상훈", "정수빈"]
+      },
+      3: {
+        name: "대전을지대학교병원",
+        doctors: ["최강", "유재현", "하은지"]
+      }
+    };
+
+    // URL 파라미터에서 hospitalId 추출
+    const params = new URLSearchParams(location.search);
+    const hospitalId = params.get("hospitalId");
+
+    const hospitalInput = document.getElementById("hospital");
+    const doctorSelect = document.getElementById("doctor");
+    const form = document.getElementById("reservationForm");
+    const warning = document.getElementById("warning");
+
+    if (hospitalId && hospitalData[hospitalId]) {
+      const hospitalInfo = hospitalData[hospitalId];
+
+      // 병원 이름 입력
+      hospitalInput.value = hospitalInfo.name;
+
+      // 의사 목록 동적으로 추가
+      hospitalInfo.doctors.forEach(doctor => {
+        const option = document.createElement("option");
+        option.value = doctor;
+        option.textContent = doctor;
+        doctorSelect.appendChild(option);
+      });
+
+      // 폼 표시
+      form.style.display = "block";
+    } else {
+      // 병원 ID가 잘못되었거나 없음
+      warning.style.display = "block";
+    }
+  </script>
+</body>
+</html>

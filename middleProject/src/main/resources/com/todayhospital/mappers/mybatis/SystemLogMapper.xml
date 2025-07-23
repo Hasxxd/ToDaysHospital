@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todayhospital.mappers.SystemLogMapper">
+    <!-- [SystemLogMapper.xml 포함 테이블 정의] -->
+    <!-- 
+        본 매퍼는 시스템 사용 기록 및 통계 데이터를 처리하는 영역으로,
+        사용자(환자/관리자)의 로그인, 로그아웃 기록과 시스템 이용 패턴을 기록·조회하는 데 사용됩니다.
+        운영/보안/관리 목적에 따라 실시간 기록 수집 및 분석에 활용됩니다.
+
+        [포함 테이블 및 역할 설명]
+
+        1. SYSTEM_LOG
+            - 로그인/로그아웃 등 사용자 행위에 대한 이력 기록 테이블
+            - PATIENT_ID 또는 ADMIN_ID를 통해 사용자 구분
+            - 접속 일시(LOG_DATE), IP(LOG_IP), 접속 상태(LOG_STATUS), 활동 정보(LOG_INFO) 포함
+            - 세션 감사(audit), 이상 접속 탐지 등의 보안 추적 용도로 사용
+
+        2. SYSTEM_USAGE_STATS
+            - 시스템 이용 통계 집계 테이블
+            - 기능별 호출 횟수, 평균 체류 시간, 일간/시간대별 접속량 분석 등
+            - 관리자 대시보드 및 운영 모니터링 목적
+
+        ※ 데이터 성격상 '조회 및 기록 중심'이며, 수정/삭제는 금지 또는 제한되어야 함
+        ※ 사용자 관리, 병원 정보, 예약 등 비로그(non-log) 도메인 데이터는 포함되지 않음
+
+        [참고: BOARD 테이블 제외 사유]
+            - BOARD는 사용자 콘텐츠(CRUD) 중심 테이블로서 PatientMapper/AdminMapper가 관리 책임을 가짐
+            - SystemLogMapper는 '행위의 기록(log)'을 담당하며, '콘텐츠의 본문 데이터'는 관심사 분리 원칙에 따라 제외
+            - 예: 게시글 조회, 삭제 등의 **행위 이력**은 SYSTEM_LOG에 기록하되, BOARD 자체는 포함하지 않음
+    -->
+
+</mapper>
