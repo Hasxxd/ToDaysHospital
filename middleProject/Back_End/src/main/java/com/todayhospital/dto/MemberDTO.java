@@ -43,8 +43,4 @@ public class MemberDTO {
     // -------------------------------
     private String find_name; // 검색 키워드 (이름)
     private String find_field; // 검색 필드 (ex. 이름, 아이디 등)
-    public Object getPassword() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
-    }
 }
