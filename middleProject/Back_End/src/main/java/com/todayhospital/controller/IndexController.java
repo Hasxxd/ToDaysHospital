@@ -1,6 +1,6 @@
 package com.todayhospital.controller;
 
-import com.todayhospital.dto.MemberDTO;
+import com.todayhospital.dto.PatientDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,10 +12,10 @@ public class IndexController implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // 세션에서 로그인 여부 확인
-        MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+        PatientDTO loginPatient = (PatientDTO) request.getSession().getAttribute("loginPatient");
 
         ActionForward forward = new ActionForward();
-        if (loginMember != null) {
+        if (loginPatient != null) {
             // 로그인 상태 → 메인 페이지로 이동
             forward.setPath("/main.jsp");
         } else {

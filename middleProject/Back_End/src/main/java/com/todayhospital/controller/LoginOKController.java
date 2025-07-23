@@ -1,8 +1,8 @@
 package com.todayhospital.controller;
 
-import com.todayhospital.dto.MemberDTO;
-import com.todayhospital.service.MemberService;
-import com.todayhospital.service.MemberServiceImpl;
+import com.todayhospital.dto.PatientDTO;
+import com.todayhospital.service.PatientService;
+import com.todayhospital.service.PatientServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,14 +15,14 @@ public class LoginOKController implements Action {
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
 
-        MemberService service = new MemberServiceImpl();
-        MemberDTO member = service.login(memberId, password); // 로그인 검증
+        PatientService service = new PatientServiceImpl();
+        PatientDTO member = service.login(memberId, password); // 로그인 검증
 
         ActionForward forward = new ActionForward();
 
         if (member != null) {
             // 로그인 성공 → 세션 저장 후 메인으로 이동
-            request.getSession().setAttribute("loginMember", member);
+            request.getSession().setAttribute("loginPatient", member);
             forward.setPath("/index.do");
             forward.setRedirect(true); // 새 요청 (리다이렉트)
         } else {
