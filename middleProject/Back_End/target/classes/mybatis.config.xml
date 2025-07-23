@@ -22,18 +22,18 @@
             <dataSource type="POOLED">
                 
                 <!-- 환경 설정: 로컬 테스트용 "week" 계정 기준 세팅 -->
-                <property name="driver" value="oracle.jdbc.OracleDriver" />
+                <!-- <property name="driver" value="oracle.jdbc.OracleDriver" />
                 <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
                 <property name="username" value="week" />
                 <property name="password" value="week" />
+                -->
                 
                 <!-- 환경 설정: 로컬 네트워크 서버용 "팀계정" 계정 기준 세팅 -->
                 <!-- (깃허브 퍼블릭 프로젝트 대처 외부 파일환경변수화) -->
-                
-                <!-- <property name="driver" value="${db.driver}" />
+                <property name="driver" value="${db.driver}" />
                 <property name="url" value="${db.url}" />
                 <property name="username" value="${db.user}" />
-                <property name="password" value="${db.password}" /> -->
+                <property name="password" value="${db.password}" />
             </dataSource>
         </environment>
     </environments>
