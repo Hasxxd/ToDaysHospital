@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kakao JS SDK 로그인 테스트</title>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  <!--카카오로그인api연결-->
+  <link rel="stylesheet" href="kakao_Login.css" /> <!--css연결-->
+  <script src="kakao_Login.js"></script> <!--자바스크립트연결,css연결과 순서바뀌면 진행안됩니다.-->
+
+</head>
+<body>
+  <div class="container">
+    <h2>Kakao JavaScript SDK 로그인 테스트</h2>
+    <button class="login-btn" onclick="kakaoLogin()">
+      <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오 로그인 버튼" />
+    </button>
+
+    <div>
+      <button onclick="getUserInfo()">사용자 정보 가져오기</button>
+    </div>
+
+    <textarea id="contents" placeholder="API 응답 결과가 여기에 표시됩니다."></textarea>
+  </div>
+
+</body>
+</html>

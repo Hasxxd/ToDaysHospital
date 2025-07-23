@@ -1,0 +1,35 @@
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .login-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+    #contents {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 400px;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      background-color: #f9f9f9;
+    }
+    

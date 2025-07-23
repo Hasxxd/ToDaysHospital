@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>회원가입</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #fff;
+      color: #222;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+    .logo img {
+      width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .input-group {
+      position: relative;
+    }
+    .with-icon input,
+    .with-icon select {
+      width: 100%;
+      padding: 12px 48px 12px 12px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline-offset: 0;
+      transition: border-color 0.3s ease;
+    }
+    .with-icon input:focus,
+    .with-icon select:focus {
+      border-color: #00bcd4;
+    }
+    .input-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 14px;
+      user-select: none;
+    }
+    .toggle-pw {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #999;
+      padding: 0;
+    }
+    .btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .toggle-btn {
+      flex: 1 1 48%;
+      padding: 10px 0;
+      border: 1px solid black;
+      border-radius: 6px;
+      background: white;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+    .toggle-btn.active {
+      border-color: #018eca;
+      background: #edf5fc;
+      color: #004b7a;
+      font-weight: 600;
+    }
+    .toggle-btn:hover {
+      border-color: black;
+      background-color: #00bcd4;
+      color: black;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #666;
+    }
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px 0;
+      background-color: #00bcd4;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+    }
+    .submit-btn:hover {
+      background-color: #70d6fe;
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 15px;
+      min-height: 24px;
+      text-align: center;
+    }
+    input:invalid,
+    select:invalid {
+      border-color: #e74c3c !important;
+    }
+    input:valid,
+    select:valid {
+      border-color: #00bcd4 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="../../images/todayhos.png" alt="오늘의 병원 로고" />
+    </div>
+    <form id="signup-form" novalidate>
+      <div class="input-group with-icon">
+        <input type="text" id="userid" name="userid" placeholder="아이디" required />
+      </div>
+      <div class="input-group with-icon">
+        <input type="password" id="password" name="password" placeholder="비밀번호" required minlength="6" />
+        <button type="button" class="toggle-pw" aria-label="비밀번호 보기/숨기기">👁️</button>
+      </div>
+      <div class="input-group with-icon">
+        <input type="email" id="email" name="email" placeholder="이메일 주소" />
+        <span class="input-icon">✉️</span>
+      </div>
+      <div class="input-group with-icon">
+        <input type="text" name="mem_zip" id="zipcode" placeholder="우편번호" readonly />
+        <input type="button" id="zipbtn" value="우편번호 찾기" />
+      </div>
+      <div class="input-group with-icon">
+        <input type="text" name="mem_add1" id="addr1" placeholder="주소" readonly />
+      </div>
+      <div class="input-group with-icon">
+        <input type="text" name="mem_add2" id="addr2" placeholder="상세주소" />
+        <input type="text" id="extraAddress" readonly placeholder="참고항목" />
+      </div>
+      <div class="input-group with-icon">
+        <input type="text" id="name" name="name" placeholder="이름" required />
+        <span class="input-icon">👤</span>
+      </div>
+      <div class="input-group with-icon">
+        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" maxlength="8" pattern="\d{8}" required />
+        <span class="input-icon">📅</span>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="toggle-btn" data-name="gender" data-value="남자">남자</button>
+        <button type="button" class="toggle-btn" data-name="gender" data-value="여자">여자</button>
+        <button type="button" class="toggle-btn" data-name="nationality" data-value="내국인">내국인</button>
+        <button type="button" class="toggle-btn" data-name="nationality" data-value="외국인">외국인</button>
+      </div>
+      <input type="hidden" name="gender" id="gender" />
+      <input type="hidden" name="nationality" id="nationality" />
+      <div class="input-group with-icon">
+        <select id="carrier" name="carrier" required>
+          <option value="" disabled selected>통신사 선택</option>
+          <option value="SKT">SKT</option>
+          <option value="KT">KT</option>
+          <option value="LGU+">LG U+</option>
+          <option value="알뜰폰">알뜰폰</option>
+        </select>
+        <span class="input-icon">📡</span>
+      </div>
+      <div class="input-group with-icon">
+        <input type="tel" id="phone" name="phone" placeholder="휴대전화번호" required pattern="010\d{8}" />
+        <span class="input-icon">📱</span>
+      </div>
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="agree" required />
+          <span>[필수] 개인정보 활용 동의</span>
+        </label>
+      </div>
+      <button type="submit" class="submit-btn">회원가입</button>
+    </form>
+    <div id="message" role="alert" aria-live="polite"></div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('signup-form');
+      const messageDiv = document.getElementById('message');
+      const existingEmails = ['test@naver.com', 'user@naver.com'];
+      const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+      const updateHiddenInput = (name, value) => {
+        const hidden = document.querySelector(`input[name="${name}"]`);
+        if (hidden) hidden.value = value;
+      };
+
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = btn.dataset.name;
+          toggleButtons.forEach(b => {
+            if (b.dataset.name === name) b.classList.remove('active');
+          });
+          btn.classList.add('active');
+          updateHiddenInput(name, btn.dataset.value);
+        });
+      });
+
+      const pwToggleBtn = document.querySelector('.toggle-pw');
+      const pwInput = document.getElementById('password');
+      if (pwToggleBtn && pwInput) {
+        pwToggleBtn.addEventListener('click', () => {
+          if (pwInput.type === 'password') {
+            pwInput.type = 'text';
+            pwToggleBtn.textContent = '🙈';
+          } else {
+            pwInput.type = 'password';
+            pwToggleBtn.textContent = '👁️';
+          }
+        });
+      }
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        messageDiv.textContent = '';
+
+        if (!form.checkValidity()) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '모든 필수 항목을 올바르게 입력해주세요.';
+          form.reportValidity();
+          return;
+        }
+
+        const birth = form.birth.value.trim();
+        if (!/^\d{8}$/.test(birth)) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '생년월일은 숫자 8자리여야 합니다.';
+          form.birth.focus();
+          return;
+        }
+
+        const phone = form.phone.value.trim();
+        if (!/^010\d{8}$/.test(phone)) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '휴대전화번호는 01012345678 형식(숫자 11자리)이어야 합니다.';
+          form.phone.focus();
+          return;
+        }
+
+        const emailVal = form.email.value.trim().toLowerCase();
+        if (emailVal && existingEmails.includes(emailVal)) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '이미 등록된 이메일 주소입니다.';
+          form.email.focus();
+          return;
+        }
+
+        if (!form.gender.value || !form.nationality.value) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '성별과 국적을 선택해주세요.';
+          return;
+        }
+
+        if (!form.agree.checked) {
+          messageDiv.style.color = '#e74c3c';
+          messageDiv.textContent = '약관에 동의해 주세요.';
+          return;
+        }
+
+        messageDiv.style.color = '#03c75a';
+        messageDiv.textContent = '가입이 성공적으로 완료되었습니다!';
+        console.log('가입 정보:', {
+          userid: form.userid.value.trim(),
+          password: form.password.value,
+          email: emailVal,
+          name: form.name.value.trim(),
+          birth,
+          gender: form.gender.value,
+          nationality: form.nationality.value,
+          phone,
+          agree: form.agree.checked,
+        });
+
+        window.parent.postMessage('signupSuccess', '*');
+        form.reset();
+      });
+    });
+
+    $(function() {
+      $('#zipbtn').on('click', function(){
+        new daum.Postcode({
+          oncomplete: function(data) {
+            var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+            var extraAddr = '';
+            if(data.userSelectedType === 'R'){
+              if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraAddr += data.bname;
+              }
+              if(data.buildingName !== '' && data.apartment === 'Y'){
+                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+              }
+              if(extraAddr !== ''){
+                extraAddr = ' (' + extraAddr + ')';
+              }
+            }
+            $('#zipcode').val(data.zonecode);
+            $('#addr1').val(addr);
+            $('#extraAddress').val(extraAddr);
+            $('#addr2').focus();
+          }
+        }).open();
+      });
+    });
+  </script>
+</body>
+</html>

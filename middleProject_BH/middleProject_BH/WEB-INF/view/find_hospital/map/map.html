@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>대전 병원 지도</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=oqxhiinnqp&submodules=geocoder"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header img {
+            width: 140px;
+            margin-bottom: 10px;
+        }
+
+        header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .category-buttons button {
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            color: #007bff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .category-buttons button.active,
+        .category-buttons button:hover {
+            background-color: #007bff;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+        }
+
+        #map {
+            width: 100%;
+            height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .location-button {
+            position: absolute;
+            top: 105px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .location-button:hover {
+            background-color: #218838;
+        }
+
+        /* 팝업 관련 스타일 */
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed; /* 고정 위치 */
+            z-index: 1001; /* 지도보다 위에 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+            background-color: rgba(0,0,0,0.4); /* 배경을 어둡게 */
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center; /* 가운데 정렬 */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto; /* 상하좌우 자동 마진으로 가운데 정렬 */
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%; /* 너비 */
+            max-width: 500px; /* 최대 너비 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 0.3s ease-out; /* 부드러운 등장 애니메이션 */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p strong {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .category-buttons button {
+                flex: 1 1 100%;
+            }
+
+            header h2 {
+                font-size: 1.5rem;
+            }
+
+            .location-button {
+                top: 160px;
+                right: 10px;
+                padding: 10px 14px;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="../home/home.html">
+                <img src="../../images/logo_img.png" alt="로고 이미지">
+            </a>
+            <h2>대전 병원 지도</h2>
+        </header>
+
+        <div class="category-buttons">
+            <button onclick="filterCategory('정형외과', this)">정형외과</button>
+            <button onclick="filterCategory('내과', this)">내과</button>
+            <button onclick="filterCategory('이비인후과', this)">이비인후과</button>
+            <button onclick="filterCategory('모든 병원', this)">모든 병원</button>
+        </div>
+
+        <button onclick="moveToMyLocation()" class="location-button">내 위치</button>
+
+        <div id="map"></div>
+    </div>
+
+    <div id="hospitalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3 id="modalHospitalName"></h3>
+            <p><strong>카테고리:</strong> <span id="modalHospitalCategory"></span></p>
+            <p><strong>주소:</strong> <span id="modalHospitalInfo"></span></p>
+            <a href="../hospital_Page_Info/hospital_Page_Info.html" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; text-decoration: none;">
+                병원 상세정보 보기
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let map; // 전역 변수로 지도 객체 선언
+        let markers = []; // 마커들을 저장할 배열
+        let currentHospital = null; // 현재 팝업에 표시된 병원 정보를 저장할 변수
+
+        const hospitalData = [
+            { id: '1', name: "튼튼 정형외과", category: "정형외과", lat: 36.3501, lng: 127.3850, info: "대전 중구 중앙로 123" },
+            { id: '2', name: "튼튼 내과", category: "내과", lat: 36.3522, lng: 127.3865, info: "대전 서구 둔산로 45" },
+            { id: '3', name: "귀코목 이비인후과", category: "이비인후과", lat: 36.3490, lng: 127.3820, info: "대전 유성구 문화로 67" },
+            { id: '4', name: "OO병원", category: "종합", lat: 36.3501, lng: 127.3850, info: "대전광역시 오류동" }
+        ];
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        window.onload = function () {
+            let initialLat = parseFloat(getUrlParameter('lat')) || 36.3504;
+            let initialLng = parseFloat(getUrlParameter('lng')) || 127.3845;
+            let hospitalNameFromUrl = getUrlParameter('name');
+
+            map = new naver.maps.Map("map", {
+                center: new naver.maps.LatLng(initialLat, initialLng),
+                zoom: 14
+            });
+
+            displayHospitals(hospitalData);
+
+            if (hospitalNameFromUrl) {
+                const targetHospital = hospitalData.find(h => h.name === hospitalNameFromUrl);
+                if (targetHospital) {
+                    const position = new naver.maps.LatLng(targetHospital.lat, targetHospital.lng);
+                    map.setCenter(position);
+                    map.setZoom(15);
+                }
+            }
+
+            setActiveButton(document.querySelector('.category-buttons button:last-child'));
+        };
+
+        function displayHospitals(hospitalsToDisplay) {
+            clearMarkers();
+
+            hospitalsToDisplay.forEach(hospital => {
+                const position = new naver.maps.LatLng(hospital.lat, hospital.lng);
+
+                const marker = new naver.maps.Marker({
+                    position,
+                    map,
+                    icon: {
+                        content: `<div style="font-size:24px; transform: rotate(180deg); color:#ff4757;">⬇️</div>`,
+                        size: new naver.maps.Size(24, 24),
+                        anchor: new naver.maps.Point(12, 12)
+                    },
+                    title: hospital.name
+                });
+
+                // 정보창은 마우스 오버 시에만 표시하고, 클릭 시에는 팝업을 띄우도록 변경
+                const infoWindow = new naver.maps.InfoWindow({
+                    content: `<div style="padding:10px;"><b>${hospital.name}</b></div>`
+                });
+
+                naver.maps.Event.addListener(marker, 'mouseover', () => infoWindow.open(map, marker));
+                naver.maps.Event.addListener(marker, 'mouseout', () => infoWindow.close());
+
+                // 마커 클릭 시 팝업 열기 함수 호출
+                naver.maps.Event.addListener(marker, 'click', () => {
+                    openHospitalModal(hospital);
+                });
+
+                markers.push(marker);
+            });
+        }
+
+        function filterCategory(category, button) {
+            setActiveButton(button);
+
+            let filtered;
+            if (category === '모든 병원') {
+                filtered = hospitalData;
+            } else {
+                filtered = hospitalData.filter(h => h.category === category);
+            }
+            displayHospitals(filtered);
+        }
+
+        function clearMarkers() {
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+        }
+
+        function setActiveButton(button) {
+            document.querySelectorAll('.category-buttons button').forEach(btn => btn.classList.remove('active'));
+            if (button) button.classList.add('active');
+        }
+
+        function moveToMyLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const myLocation = new naver.maps.LatLng(lat, lng);
+
+                    map.setCenter(myLocation);
+                    map.setZoom(15);
+
+                    new naver.maps.Marker({
+                        position: myLocation,
+                        map: map,
+                        icon: {
+                            content: `<div style="font-size:24px; color:#28a745;">🧍</div>`,
+                            size: new naver.maps.Size(24, 24),
+                            anchor: new naver.maps.Point(12, 12)
+                        },
+                        title: "내 위치"
+                    });
+                }, function() {
+                    alert("위치 정보를 가져오지 못했습니다. 위치 접근을 허용해주세요.");
+                });
+            } else {
+                alert("이 브라우저에서는 위치 정보 사용이 지원되지 않습니다.");
+            }
+        }
+
+        // 팝업 열기 함수
+        function openHospitalModal(hospital) {
+            currentHospital = hospital; // 현재 팝업에 표시될 병원 정보 저장
+
+            document.getElementById('modalHospitalName').textContent = hospital.name;
+            document.getElementById('modalHospitalCategory').textContent = hospital.category;
+            document.getElementById('modalHospitalInfo').textContent = hospital.info;
+
+            document.getElementById('hospitalModal').style.display = 'flex'; // flex로 설정하여 중앙 정렬 적용
+        }
+
+        // 팝업 닫기 함수
+        function closeModal() {
+            document.getElementById('hospitalModal').style.display = 'none';
+            currentHospital = null; // 팝업 닫을 때 정보 초기화
+        }
+
+        // 팝업 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('hospitalModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // '지도에서 길찾기' 버튼 클릭 시 외부 지도 앱 열기 (선택 사항)
+        function openExternalMap() {
+            if (currentHospital) {
+                // 네이버 지도 앱으로 연결 (모바일 환경에서 앱이 있다면 앱으로, 없으면 웹으로 연결)
+                // 현재 위치에서 병원까지 길찾기 (출발지를 현재 위치로 가정)
+                // 주의: 실제 사용자 위치를 얻으려면 getCurrentPosition을 사용해야 합니다.
+                // 여기서는 예시로 "내 위치" 버튼을 클릭했을 때 얻는 위치를 사용하거나,
+                // 아니면 그냥 병원 위치를 중심으로 한 지도를 보여주는 식으로 합니다.
+                const userLat = 36.3504; // 예시: 대전 중심 위도 (실제 사용자 위치로 변경 필요)
+                const userLng = 127.3845; // 예시: 대전 중심 경도 (실제 사용자 위치로 변경 필요)
+
+                // 네이버 지도 길찾기 URL (출발지: 현재 위치, 도착지: 병원 위치)
+                // lat, lng, dlat, dlng, dname 파라미터 사용
+                const naverMapUrl = `nmap://route/public?sname=${encodeURIComponent('내 위치')}&slat=${userLat}&slng=${userLng}&dname=${encodeURIComponent(currentHospital.name)}&dlat=${currentHospital.lat}&dlng=${currentHospital.lng}&appname=YourAppName`;
+                
+                // 웹 브라우저 네이버 지도 URL (병원 위치를 중심으로)
+                const naverWebMapUrl = `https://map.naver.com/p/search/${encodeURIComponent(currentHospital.name)}?c=${currentHospital.lng},${currentHospital.lat},15,0,0,0,dh`;
+
+                // iOS/Android 네이티브 앱 시도 후 실패 시 웹으로 리다이렉트
+                window.location.href = naverMapUrl;
+                setTimeout(() => {
+                    // 앱이 실행되지 않으면 웹 페이지로 이동
+                    window.location.href = naverWebMapUrl;
+                }, 500); // 0.5초 대기 후 웹으로 이동 시도
+            }
+        }
+    </script>
+
+</body>
+</html>
