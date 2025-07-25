@@ -2,6 +2,10 @@
 package com.middleproject.controller;
 
 public class ActionForward {
+
+    public ActionForward(String webinFviewsmemberloginjsp, boolean par) {
+    }
+
     private String path;
     private boolean isRedirect;
 

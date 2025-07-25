@@ -32,6 +32,9 @@
     "JDBC",
     "JSTL",
     "todayhospital"
-  ]
+  ],
+  "github.copilot.enable": {
+    "*": false
+  }
 }
   

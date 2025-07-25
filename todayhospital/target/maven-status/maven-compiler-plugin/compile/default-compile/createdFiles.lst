@@ -6,6 +6,9 @@ com\middleproject\controller\Action.class
 com\middleproject\controller\MFrontController.class
 com\middleproject\dao\PatientDAOImpl.class
 com\middleproject\dto\LoginDTO.class
+com\middleproject\dto\PatientCreateDTO.class
+com\middleproject\dto\PatientLoginResultDTO.class
+com\middleproject\dto\PatientDetailDTO.class
 com\middleproject\mappers\PatientMapper.class
 com\middleproject\dto\PreMedicalFormDTO.class
 com\middleproject\controller\LoginOKController.class

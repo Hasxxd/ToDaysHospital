@@ -9,7 +9,7 @@ public class IndexController implements Action {
 
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-        ActionForward forward = new ActionForward();
+        ActionForward forward = new ActionForward("/WEB-INF/views/member/login.jsp", false);
 
         try {
             // forward.setPath("/WEB-INF/views/home/home.jsp");

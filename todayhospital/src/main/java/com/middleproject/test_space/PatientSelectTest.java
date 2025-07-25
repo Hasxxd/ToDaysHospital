@@ -2,28 +2,39 @@ package com.middleproject.test_space;
 
 import java.util.List;
 
-import com.middleproject.dao.PatientDAO;
-import com.middleproject.dao.PatientDAOImpl;
+import org.apache.ibatis.session.SqlSession;
+
 import com.middleproject.dto.PatientDTO;
+import com.middleproject.mappers.PatientMapper;
 import com.middleproject.mybatis.config.DBService;
 
 public class PatientSelectTest {
     public static void main(String[] args) {
-        PatientDAO dao = new PatientDAOImpl(DBService.SqlSessionFactory());
+        // DB 연결 테스트
+        try (SqlSession session = DBService.SqlSessionFactory().openSession()) {
+            System.out.println("[INFO] DB 연결 성공");
 
-        List<PatientDTO> list = dao.getAllPatients();
+            // 매퍼 인터페이스 획득
+            PatientMapper mapper = session.getMapper(PatientMapper.class);
+            if (mapper == null) {
+                System.err.println("[ERROR] PatientMapper 주입 실패");
+                return;
+            }
 
-        if (list == null || list.isEmpty()) {
-            System.out.println("조회된 회원이 없습니다.");
-            return;
-        }
+            // 테스트용 쿼리 실행: 전체 환자 조회
+            List<PatientDTO> patients = mapper.findAllPatients(); // ※ Mapper에 해당 메서드 있어야 함
+            if (patients != null && !patients.isEmpty()) {
+                System.out.println("[INFO] 환자 목록 조회 결과:");
+                for (PatientDTO patient : patients) {
+                    System.out.println(" - " + patient);
+                }
+            } else {
+                System.out.println("[INFO] 환자 데이터가 없습니다.");
+            }
 
-        System.out.println("회원 목록 (" + list.size() + "명):");
-        for (PatientDTO m : list) {
-            System.out.printf("%s | 로그인ID: %s | 이름: %s%n",
-                    m.getPatientId(),
-                    m.getPatientLoginId(),
-                    m.getPatientName());
+        } catch (Exception e) {
+            System.err.println("[ERROR] DB 연결 또는 쿼리 실행 중 오류 발생:");
+            e.printStackTrace();
         }
     }
 }

@@ -1,59 +1,74 @@
 package com.middleproject.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.middleproject.dto.LoginDTO;
 import com.middleproject.dto.PatientDTO;
+import com.middleproject.mybatis.config.DBService;
 import com.middleproject.mappers.PatientMapper;
 
 public class PatientDAOImpl implements PatientDAO {
 
-    private final SqlSessionFactory sqlSessionFactory;
-
-    public PatientDAOImpl(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private final SqlSessionFactory sqlSessionFactory = DBService.SqlSessionFactory();
 
     @Override
-    public List<PatientDTO> getAllPatients() {
+    public PatientDTO loginCheck(LoginDTO loginDTO) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             PatientMapper mapper = session.getMapper(PatientMapper.class);
-            return mapper.selectAllPatients();
+            return mapper.loginCheck(loginDTO);
         }
     }
 
     @Override
-    public PatientDTO idCheck(String id) {
+    public void increaseLoginFailCount(String patientLoginId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             PatientMapper mapper = session.getMapper(PatientMapper.class);
-            return mapper.idCheck(id); // MyBatis XML에 idCheck 쿼리 필요
+            mapper.incrementLoginFailCount(patientLoginId);
+            session.commit();
         }
     }
 
     @Override
-    public PatientDTO pwdPatient(PatientDTO m) {
+    public void resetLoginFailCount(String patientLoginId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             PatientMapper mapper = session.getMapper(PatientMapper.class);
-            return mapper.pwdPatient(m); // 이름, 전화번호 등으로 찾는 로직 가정
+            mapper.resetLoginFailCount(patientLoginId);
+            session.commit();
         }
     }
 
     @Override
-    public PatientDTO findById(String patientId) {
+    public boolean isAccountLocked(String patientLoginId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             PatientMapper mapper = session.getMapper(PatientMapper.class);
-            return mapper.findById(patientId);
+            int locked = mapper.isAccountLocked(patientLoginId);
+            return locked == 1;
         }
     }
 
     @Override
-    public PatientDTO loginCheck(String patientLoginId, String patientPw) {
+    public boolean idExists(String patientLoginId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             PatientMapper mapper = session.getMapper(PatientMapper.class);
-            return mapper.loginCheck(patientLoginId, patientPw);
+            PatientDTO dto = mapper.findByLoginId(patientLoginId);
+            return dto != null;
         }
     }
 
+    @Override
+    public PatientDTO findByPatientId(String patientId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            PatientMapper mapper = session.getMapper(PatientMapper.class);
+            return mapper.findByPatientId(patientId);
+        }
+    }
+
+    @Override
+    public PatientDTO findPatientByNameAndPhone(PatientDTO queryDto) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            PatientMapper mapper = session.getMapper(PatientMapper.class);
+            return mapper.findPatientByNameAndPhone(queryDto);
+        }
+    }
 }

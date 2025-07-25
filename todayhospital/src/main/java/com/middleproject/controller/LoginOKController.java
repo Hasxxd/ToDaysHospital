@@ -1,5 +1,6 @@
 package com.middleproject.controller;
 
+import com.middleproject.dto.LoginDTO;
 import com.middleproject.dto.PatientDTO;
 import com.middleproject.service.PatientService;
 import com.middleproject.service.PatientServiceImpl;
@@ -12,13 +13,18 @@ public class LoginOKController implements Action {
 
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String memberId = request.getParameter("memberId");
+        String memberId = request.getParameter("loginId");
         String password = request.getParameter("password");
 
         PatientService service = new PatientServiceImpl();
-        PatientDTO member = service.login(memberId, password); // 로그인 검증
 
-        ActionForward forward = new ActionForward();
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setPatientLoginId(memberId);
+        loginDTO.setPatientPw(password);
+
+        PatientDTO member = service.login(loginDTO);
+
+        ActionForward forward = new ActionForward("/WEB-INF/views/member/login.jsp", false);
 
         if (member != null) {
             // 로그인 성공 → 세션 저장 후 메인으로 이동

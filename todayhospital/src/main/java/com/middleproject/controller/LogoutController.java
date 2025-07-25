@@ -23,7 +23,7 @@ public class LogoutController implements Action {
         response.setDateHeader("Expires", 0); // Proxies
 
         // index로 리다이렉트 → 로그인 여부는 index에서 분기
-        ActionForward forward = new ActionForward();
+        ActionForward forward = new ActionForward("/WEB-INF/views/member/login.jsp", false);
         forward.setPath("/index.do");
         forward.setRedirect(true); // 클라이언트로 새 요청 유도 (권장)
         return forward;
