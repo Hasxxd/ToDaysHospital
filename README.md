@@ -60,7 +60,8 @@ middleProject/
 ## 🚀 실행 방법
 
 ### ▶️ 실행 주소:
-http://localhost:8080/login_ok.do
+http://localhost:8080/todayhospital/login.do
+http://localhost:8080/todayhospital/index.do
 
 ### ✅ 사전 준비
 - JDK 17, Tomcat 11 설치
