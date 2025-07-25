@@ -1,0 +1,23 @@
+/* style.css */
+
+/* body 태그에 Inter 폰트를 적용합니다. */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* reCAPTCHA 배지를 숨겨 페이지 디자인을 깔끔하게 유지합니다. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* 카카오 로그인 버튼 내 이미지의 크기를 조절하여 반응형으로 만듭니다. */
+#kakaoLoginBtn img {
+  width: 100%; /* 부모 요소에 맞춰 너비를 100%로 설정 */
+  height: auto; /* 비율 유지를 위해 높이 자동 설정 */
+  max-width: 200px; /* 이미지의 최대 너비를 200px로 제한하여 너무 커지지 않도록 합니다. */
+}
+
+/*
+  참고: 대부분의 스타일링은 Tailwind CSS 유틸리티 클래스를 HTML에 직접 적용했습니다.
+  이 CSS 파일에는 Tailwind로 처리하기 어렵거나 특정 요소에만 필요한 커스텀 스타일이 포함됩니다.
+*/

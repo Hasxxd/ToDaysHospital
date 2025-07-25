@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.middleproject.mappers.PatientMapper">
+
+    <!-- 환자 전체 조회 -->
+    <select id="selectAllPatients" resultType="com.middleproject.dto.PatientDTO">
+        SELECT
+            PATIENT_ID,
+            PATIENT_LOGIN_ID,
+            PATIENT_PW,
+            PATIENT_NAME,
+            TO_CHAR(PATIENT_BIR, 'YYYY-MM-DD') AS PATIENT_BIR,
+            PATIENT_GENDER,
+            PATIENT_ADDR1,
+            PATIENT_PHONE,
+            PATIENT_ZIP,
+            PATIENT_EMAIL,
+            PATIENT_DISEASE,
+            PATIENT_REGNO2,
+            PATIENT_ADDR2,
+            PATIENT_BLOOD,
+            PATIENT_REGNO1,
+            PATIENT_ALLERGY,
+            PATIENT_MEDICATION,
+            PATIENT_STATE,
+            TO_CHAR(PATIENT_CREATE, 'YYYY-MM-DD') AS PATIENT_CREATE,
+            TO_CHAR(PATIENT_UPDATE, 'YYYY-MM-DD') AS PATIENT_UPDATE
+        FROM PATIENT
+    </select>
+
+    <select id="findById" parameterType="String" resultType="com.middleproject.dto.PatientDTO">
+        SELECT
+            PATIENT_ID,
+            PATIENT_LOGIN_ID,
+            PATIENT_NAME,
+            PATIENT_EMAIL,
+            PATIENT_STATE
+        FROM PATIENT
+        WHERE PATIENT_ID = #{id}
+    </select>
+    
+    <!-- 로그인 인증 (계정상태 'Y' + 실패 횟수 < 5) -->
+    <select id="loginCheck" parameterType="com.middleproject.dto.LoginDTO" resultType="com.middleproject.dto.PatientDTO">
+        <![CDATA[
+            SELECT
+                PATIENT_ID,
+                PATIENT_LOGIN_ID,
+                PATIENT_NAME,
+                PATIENT_EMAIL,
+                PATIENT_STATE
+            FROM PATIENT
+            WHERE PATIENT_LOGIN_ID = #{id}
+                AND PATIENT_PW = #{pw}
+                AND NVL(LOGIN_FAIL_COUNT, 0) < 5
+                AND PATIENT_STATE = 'Y'
+        ]]>
+    </select>
+    
+    <!-- 로그인 실패 횟수 초기화 -->
+    <update id="resetLoginFailCount" parameterType="String">
+        UPDATE PATIENT
+        SET LOGIN_FAIL_COUNT = 0
+        WHERE PATIENT_LOGIN_ID = #{id}
+    </update>
+
+    <!-- 로그인 실패 횟수 1 증가 -->
+    <update id="incrementLoginFailCount" parameterType="String">
+        UPDATE PATIENT
+        SET LOGIN_FAIL_COUNT = NVL(LOGIN_FAIL_COUNT, 0) + 1
+        WHERE PATIENT_LOGIN_ID = #{id}
+    </update>
+
+    <!-- 계정 잠금 여부 확인 -->
+    <select id="isAccountLocked" resultType="boolean" parameterType="string">
+        SELECT CASE
+                    WHEN NVL(LOGIN_FAIL_COUNT, 0) >= 5 THEN 1
+                    ELSE 0
+                END AS IS_LOCKED
+        FROM PATIENT
+        WHERE PATIENT_LOGIN_ID = #{PATIENT_LOGIN_ID}
+    </select>
+
+    <!-- 로그아웃 처리 로그 업데이트 -->
+    <update id="updateLogoutLog" parameterType="string">
+        UPDATE SYSTEM_LOG
+        SET LOG_DATE = SYSDATE,
+            LOG_STATUS = 'LOGOUT',
+            LOG_INFO = '사용자 로그아웃 처리'
+        WHERE PATIENT_ID = #{patient_id}
+            AND LOG_STATUS = 'LOGIN'
+            AND LOG_DATE = (
+                SELECT MAX(LOG_DATE)
+                FROM SYSTEM_LOG
+                WHERE PATIENT_ID = #{patient_id}
+                    AND LOG_STATUS = 'LOGIN'
+            )
+    </update>
+
+</mapper>

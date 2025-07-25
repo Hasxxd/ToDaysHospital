@@ -26,6 +26,12 @@
   ],
   "java.errors.incompleteClasspath.severity": "warning",
   "java.languageServer.launchMode": "Standard",
-  "java.debug.settings.onBuildFailureProceed": true
+  "java.debug.settings.onBuildFailureProceed": true,
+  "cSpell.words": [
+    "javax",
+    "JDBC",
+    "JSTL",
+    "todayhospital"
+  ]
 }
   

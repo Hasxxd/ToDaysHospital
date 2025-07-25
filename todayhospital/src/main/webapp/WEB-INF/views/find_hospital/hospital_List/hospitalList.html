@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>병원 목록</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f9f9f9;
+      padding: 50px;
+    }
+
+    .hospital-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hospital-card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 24px 30px;
+      margin-bottom: 20px;
+      transition: box-shadow 0.2s;
+    }
+
+    .hospital-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .hospital-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 10px;
+    }
+
+    .hospital-info {
+      font-size: 15px;
+      margin: 4px 0;
+    }
+
+    .hospital-info i {
+      margin-right: 6px;
+      color: #666;
+    }
+
+    .hospital-dept {
+      font-size: 14px;
+      color: #444;
+      margin-top: 8px;
+    }
+
+    .reserve-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+     h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🏥 대전 지역 병원 목록</h2>
+  
+  <div class="hospital-list">
+
+    <div class="hospital-card">
+      <div class="hospital-name">대전 선병원</div>
+      <div class="hospital-info"><i>📍</i>대전 중구 목중로 29</div>
+      <div class="hospital-info"><i>📞</i>1588-7011</div>
+      <div class="hospital-dept">🔗 진료과목: 내과, 정형외과, 응급의학과, 영상의학과, 외과…</div>
+      <button class="reserve-button">예약하기</button>
+    </div>
+
+    <div class="hospital-card">
+      <div class="hospital-name">대전병원</div>
+      <div class="hospital-info"><i>📍</i>대전 대덕구 대전로 1215</div>
+      <div class="hospital-info"><i>📞</i>0507-1493-0704</div>
+      <div class="hospital-dept">🔗 진료과목: 내과, 신경과</div>
+      <button class="reserve-button">예약하기</button>
+    </div>
+
+    <div class="hospital-card">
+      <div class="hospital-name">대전을지대학교병원</div>
+      <div class="hospital-info"><i>📍</i>대전 서구 둔산서로 95</div>
+      <div class="hospital-info"><i>📞</i>042-611-3000</div>
+      <div class="hospital-dept">🔗 진료과목: 내과, 외과, 정형외과, 산부인과, 소아청소년과…</div>
+      <button class="reserve-button">예약하기</button>
+    </div>
+
+  </div>
+
+</body>
+</html>

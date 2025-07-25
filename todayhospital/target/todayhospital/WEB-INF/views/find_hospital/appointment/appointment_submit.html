@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>예약 완료</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .confirmation-container {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2ecc71;
+      margin-bottom: 20px;
+    }
+
+    .info {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .info strong {
+      color: #333;
+    }
+
+    .button-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      display: inline-block;
+      background-color: #1e90ff;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    a:hover {
+      background-color: #0073cc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="confirmation-container">
+    <h2>✅ 예약이 완료되었습니다!</h2>
+    <div class="info" id="reservationInfo"></div>
+    <div class="button-container">
+      <a href="hospitalList	.html">🏥 병원 목록으로</a>
+      <a href="reservation-list.html">📋 예약 내역 보기</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const reservation = {
+      hospital: params.get("hospital") || "미입력",
+      doctor: params.get("doctor") || "미입력",
+      date: params.get("date") || "미입력",
+      time: params.get("time") || "미입력",
+      symptom: params.get("symptom") || "없음"
+    };
+
+    // 정보 출력
+    document.getElementById("reservationInfo").innerHTML = `
+      <strong>🏥 병원명:</strong> ${reservation.hospital}<br>
+      <strong>👨‍⚕️ 담당의:</strong> ${reservation.doctor}<br>
+      <strong>📅 예약일자:</strong> ${reservation.date}<br>
+      <strong>🕐 예약시간:</strong> ${reservation.time}<br>
+      <strong>📝 증상 내용:</strong> ${reservation.symptom}
+    `;
+
+    // 로컬스토리지에 저장
+    const existing = JSON.parse(localStorage.getItem("reservations") || "[]");
+    existing.push(reservation);
+    localStorage.setItem("reservations", JSON.stringify(existing));
+  </script>
+
+</body>
+</html>

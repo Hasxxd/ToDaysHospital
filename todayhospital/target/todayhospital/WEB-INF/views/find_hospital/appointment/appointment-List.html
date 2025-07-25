@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>내 마지막 예약</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f4f7f9;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e90ff;
+      margin-bottom: 30px;
+    }
+
+    .reservation-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .reservation-card p {
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+
+    .back-button {
+      margin-top: 30px;
+    }
+
+    .back-button a {
+      background-color: #1e90ff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .back-button a:hover {
+      background-color: #0073cc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📋 내 최근 예약</h2>
+
+  <div class="reservation-card" id="recentReservation">
+    <!-- 최근 예약이 표시될 영역 -->
+  </div>
+
+  <div class="back-button">
+    <a href="hospitalList.html">🏥 병원 목록으로</a>
+  </div>
+
+  <script>
+    const reservations = JSON.parse(localStorage.getItem("reservations") || "[]");
+    const recentReservation = reservations[reservations.length - 1]; // 마지막 예약 1개 가져오기
+    const container = document.getElementById("recentReservation");
+
+    if (recentReservation) {
+      container.innerHTML = `
+        <p><strong>🏥 병원명:</strong> ${recentReservation.hospital || "미입력"}</p>
+        <p><strong>👨‍⚕️ 담당의:</strong> ${recentReservation.doctor || "미입력"}</p>
+        <p><strong>📅 예약일자:</strong> ${recentReservation.date || "미입력"}</p>
+        <p><strong>🕐 예약시간:</strong> ${recentReservation.time || "미입력"}</p>
+        <p><strong>📝 증상 내용:</strong> ${recentReservation.symptom || "없음"}</p>
+      `;
+    } else {
+      container.innerHTML = "<p style='text-align:center;'>예약 내역이 없습니다.</p>";
+    }
+  </script>
+
+</body>
+</html>

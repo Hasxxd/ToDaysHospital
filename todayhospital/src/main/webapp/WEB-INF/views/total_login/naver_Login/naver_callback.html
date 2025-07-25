@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>콜백 결과 입니다. </title>
+</head>
+<body>
+    <h2>네이버 로그인 완료 페이지 입니다.</h2>
+    <div id="result"></div>
+    <script>
+        if (window.location.search.indexOf("code=") > -1) {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById("result").innerHTML =
+                "<strong>인증 코드:</strong> " + params.get("code") + "<br>"
+                + "<strong>state:</strong> " + params.get("state") + "<br>"
+                + "<strong>이 코드를 서버로 보내야 이메일을 조회할 수 있습니다.</strong>";
+        } else {
+            document.getElementById("result").innerHTML = "인증 코드 없음";
+        }
+    </script>
+</body>
+</html>

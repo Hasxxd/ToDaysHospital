@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 - 오늘의 병원</title>
+  <!-- Tailwind CSS CDN을 포함하여 유틸리티 클래스를 사용합니다. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter를 사용하여 폰트를 설정합니다. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- reCAPTCHA API를 비동기적으로 로드합니다. -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <!-- 외부 CSS 파일 (style.css)을 연결하여 커스텀 스타일을 적용합니다. -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <!-- 로그인 폼을 감싸는 메인 컨테이너입니다. Tailwind를 사용하여 중앙 정렬, 그림자, 둥근 모서리 등을 설정합니다. -->
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- 로그인 페이지 제목입니다. -->
+    <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">로그인</h2>
+    <!-- 로그인 폼입니다. 제출 시 handleLogin 함수가 호출됩니다. -->
+    <form onsubmit="return handleLogin(event)" class="flex flex-col space-y-4">
+      <!-- 아이디 입력 필드입니다. -->
+      <input
+        type="text"
+        id="username"
+        placeholder="아이디"
+        required
+        class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <!-- 비밀번호 입력 필드입니다. -->
+      <input
+        type="password"
+        id="password"
+        placeholder="비밀번호"
+        required
+        class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <!-- 로그인 제출 버튼입니다. -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white p-3 rounded-md font-medium hover:bg-blue-700 transition duration-300 ease-in-out shadow-md"
+      >
+        로그인
+      </button>
+
+      <!-- 소셜 로그인 버튼 섹션입니다. -->
+      <!-- 카카오 로그인 버튼입니다. 클릭 시 openKakaoLoginPage 함수가 호출됩니다. -->
+      <!-- 이미지가 아닌 텍스트 버튼으로 변경되었습니다. -->
+      <button
+        type="button"
+        onclick="openKakaoLoginPage()"
+        id="kakaoLoginBtn"
+        class="w-full bg-yellow-400 text-gray-800 p-3 rounded-md font-medium hover:bg-yellow-500 transition duration-300 ease-in-out shadow-md"
+      >
+        카카오 로그인
+      </button>
+      <!-- 구글 로그인 버튼입니다. 클릭 시 openGoogleLoginPage 함수가 호출됩니다. -->
+      <button
+        type="button"
+        onclick="openGoogleLoginPage()"
+        id="googleLoginBtn"
+        class="w-full bg-red-500 text-white p-3 rounded-md font-medium hover:bg-red-600 transition duration-300 ease-in-out shadow-md"
+      >
+        구글 로그인
+      </button>
+      <!-- 네이버 로그인 버튼입니다. 클릭 시 openNaverloginPage 함수가 호출됩니다. -->
+      <button
+        type="button"
+        onclick="openNaverloginPage()"
+        id="naverLoginBtn"
+        class="w-full bg-green-500 text-white p-3 rounded-md font-medium hover:bg-green-600 transition duration-300 ease-in-out shadow-md"
+      >
+        네이버 로그인
+      </button>
+    </form>
+
+    <!-- 아이디/비밀번호 찾기 및 회원가입 링크 섹션입니다. -->
+    <div class="find-links text-center text-sm mt-6 space-x-4">
+      <a href="../../signup/signup.jsp" id="joinMember" class="text-blue-800 hover:underline transition duration-300 ease-in-out">회원가입</a>
+      <span class="text-gray-400">|</span>
+      <a href="#" id="findId" class="text-blue-600 hover:underline transition duration-300 ease-in-out">아이디 찾기</a>
+      <span class="text-gray-400">|</span>
+      <a href="#" id="findPassword" class="text-blue-600 hover:underline transition duration-300 ease-in-out">비밀번호 찾기</a>
+    </div>
+
+    <!-- reCAPTCHA 컨테이너입니다. 폼 제출 시 verifyAndSubmit 함수가 호출됩니다. -->
+    <div id="recaptcha-container" class="mt-6 flex justify-center">
+      <form onsubmit="verifyAndSubmit(); return false;">
+        <div
+          class="g-recaptcha"
+          const recaptchaSiteKey = "6Lc2OYsrAAAAALPnug9lY6T-VHCMsnWBz6_9Z0R8";
+        ></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 외부 JavaScript 파일 (script.js)을 연결합니다. -->
+  <script src="login.js"></script>
+  
+</body>
+</html>
