@@ -9,6 +9,7 @@ import com.middleproject.mappers.PatientMapper;
 import com.middleproject.mybatis.config.DBService;
 
 public class PatientSelectTest {
+
     public static void main(String[] args) {
         // DB 연결 테스트
         try (SqlSession session = DBService.SqlSessionFactory().openSession()) {
@@ -23,10 +24,14 @@ public class PatientSelectTest {
 
             // 테스트용 쿼리 실행: 전체 환자 조회
             List<PatientDTO> patients = mapper.findAllPatients(); // ※ Mapper에 해당 메서드 있어야 함
+
             if (patients != null && !patients.isEmpty()) {
                 System.out.println("[INFO] 환자 목록 조회 결과:");
                 for (PatientDTO patient : patients) {
-                    System.out.println(" - " + patient);
+                    System.out.println(" - ID: " + patient.getPatientId()
+                            + ", Name: " + patient.getPatientName()
+                            + ", Email: " + patient.getPatientEmail()
+                            + ", State: " + patient.getPatientState());
                 }
             } else {
                 System.out.println("[INFO] 환자 데이터가 없습니다.");

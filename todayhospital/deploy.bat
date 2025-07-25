@@ -33,6 +33,6 @@ timeout /t 2 >nul
 echo [INFO] Tomcat 서버 시작 중...
 call "%VS_CODE_TOMCAT_HOME%\bin\startup.bat"
 
-echo [SUCCESS] 배포 완료: 
+echo [SUCCESS] 배포 완료 :
 echo http://localhost:8080/todayhospital/login.do
 echo http://localhost:8080/todayhospital/index.do

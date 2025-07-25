@@ -21,7 +21,7 @@ public class PatientDTO {
     private String patientAddr1; // 7. 주소 (기본)
     private String patientPhone; // 8. 전화번호
     private String patientZip; // 9. 우편번호
-    private String patientMail; // 10. 이메일
+    private String patientEmail; // 10. 이메일
     private String patientDisease; // 11. 주요 질병
     private String patientRegno2; // 12. 주민번호 뒷자리
     private String patientAddr2; // 13. 주소 (상세)
