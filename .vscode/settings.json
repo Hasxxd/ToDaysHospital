@@ -35,6 +35,7 @@
   ],
   "github.copilot.enable": {
     "*": false
-  }
+  },
+  "commentTranslate.hover.enabled": true
 }
   
