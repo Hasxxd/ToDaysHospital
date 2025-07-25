@@ -23,16 +23,18 @@ public class PatientSelectTest {
             }
 
             // 테스트용 쿼리 실행: 전체 환자 조회
-            List<PatientDTO> patients = mapper.findAllPatients(); // ※ Mapper에 해당 메서드 있어야 함
+            List<PatientDTO> patients = mapper.findAllPatients();
 
             if (patients != null && !patients.isEmpty()) {
+                System.err.println("---------------------------------");
                 System.out.println("[INFO] 환자 목록 조회 결과:");
                 for (PatientDTO patient : patients) {
-                    System.out.println(" - ID: " + patient.getPatientId()
-                            + ", Name: " + patient.getPatientName()
-                            + ", Email: " + patient.getPatientEmail()
-                            + ", State: " + patient.getPatientState());
+                    System.out.println(" - ID : " + patient.getPatientId()
+                            + "\n - Name : " + patient.getPatientName()
+                            + "\n - Email : " + patient.getPatientEmail()
+                            + "\n - State : " + patient.getPatientState());
                 }
+                System.err.println("---------------------------------");
             } else {
                 System.out.println("[INFO] 환자 데이터가 없습니다.");
             }
