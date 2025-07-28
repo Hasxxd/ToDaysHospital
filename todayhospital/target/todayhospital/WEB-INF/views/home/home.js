@@ -142,3 +142,48 @@ window.searchBySymptom = function () {
             resultArea.innerHTML = "<p>오류가 발생했습니다.</p>";
         });
 };
+
+function openGuidePopup() {
+  const width = 700;
+  const height = 600;
+  const left = (window.screen.width / 2) - (width / 2);
+  const top = (window.screen.height / 2.3) - (height / 2);
+  
+  const popup = window.open("", "guidePopup", `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=yes`);
+  
+  const guideContent = `
+    <html>
+    <head>
+      <title>오늘의 병원 이용 가이드</title>
+      <style>
+        body { font-family: 'SUIT', sans-serif; padding: 20px; line-height: 1.6; background: #f9f9f9; }
+        h2 { color: #007c91; margin-bottom: 20px; text-align: center; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 12px; }
+        .tip { margin-top: 20px; font-style: italic; color: #555; text-align: center;}
+        button { margin-top: 30px; padding: 8px 16px; background-color: #00bcd4; color: white; border: none; border-radius: 6px; cursor: pointer;  display: block; margin: 30px auto 0; }
+        button:hover { background-color: #0097a7; }
+      </style>
+    </head>
+    <body>
+      <h2>🏥 오늘의 병원 이용 가이드</h2>
+      <ul>
+        <li><strong>① 회원가입 / 로그인</strong><br>회원가입 버튼을 눌러 가입하고 로그인해 보세요!</li>
+        <li><strong>② 증상으로 병원 검색</strong><br>증상만 검색해도 가야할 병원을 알 수 있어요.</li>
+        <li><strong>③ 내 주변 병원 찾기</strong><br>내 주변 병원의 진료시간, 주소, 병원 소개를 한눈에 확인!</li>
+        <li><strong>④ 진료 예약하기</strong><br>날짜와 시간 선택 후 간단한 정보 입력으로 예약 완료!</li>
+        <li><strong>⑤ 예약현황조회</strong><br>예약현황조회에서 언제든 예약을 확인하고 관리할 수 있어요.</li>
+        <li><strong>⑥ 자료실</strong><br>병원 관련 기사와 관련 글들을 확인해보세요.</li>
+		<li><strong>⑦ 공지사항</strong><br>'오늘의 병원'의 공지사항을 확인해보세요.</li>
+		<li><strong>⑧ 커뮤니티</strong><br>궁금한 병원 정보, Q&A 등을 확인해보세요.</li>
+      </ul>
+      <p class="tip">📌 예약은 중복 없이 한 번에 하나만 가능하며, 병원에서 확인 연락이 올 수 있어요.</p>
+      <button onclick="window.close()">닫기</button>
+    </body>
+    </html>
+  `;
+
+  popup.document.write(guideContent);
+  popup.document.close();
+}
+

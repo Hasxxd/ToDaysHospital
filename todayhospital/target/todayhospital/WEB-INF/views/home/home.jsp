@@ -5,10 +5,11 @@
   <meta charset="UTF-8" />
   <title>오늘의 병원</title>
   <link rel="stylesheet" href="home.css" />
+  <link rel="icon" href="data:," />
 </head>
 <body>
   <div class="wrapper">
-    <button class="menu-button">☰ 메뉴</button>
+    <button class="menu-button">🛠️ 관리자 로그인</button>
 
     <div class="auth-buttons">
       <button onclick="openLoginPopup()">로그인</button>
@@ -24,38 +25,48 @@
 
 <!-- 증상으로 병원 검색 -->
   <div class="search">
-      <input type="text" id="symptomInput" placeholder="증상으로 병원 검색하기" />
-      <button onclick="searchBySymptom()">검색</button>
-      <span id="loadingIndicator" class="loading-text" style="display: none;">🔍 검색 중입니다...</span>
+  	<input type="text" id="symptomInput" placeholder="증상으로 병원 검색하기" />
+  	<button onclick="searchBySymptom()">검색</button>
+  	<span id="loadingIndicator" class="loading-text" style="display: none;">🔍 검색 중입니다...</span>
   </div>
 
 	<!-- 검색 결과 출력 영역 -->
 	<div id="resultArea" class="search-result-area"></div>
 
-    <div class="main-content">
-      <div class="card">
-        <h3>홈페이지<br>이용 가이드</h3>
-        <button>확인하기</button>
-      </div>
+		<div class="main-content">
+			<div class="card">
+				<h3>
+					홈페이지<br>이용 가이드
+				</h3>
+				<button onclick="openGuidePopup()">확인하기</button>
+			</div>
 
-      <div class="card calendar-card">
-        <h3>예약현황조회</h3>
-        <p>진료예약현황을 조회</p>
-        <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="달력" />
-      </div>
 
-      <div class="card search-doctor">
-        <h3>내 주변<br>병원 찾기</h3>
-        <button onclick="window.location.href='../find_hospital/map/map.html'">찾기</button>
-      </div>
+			<div class="card calendar-card">
+				<h3>예약현황조회</h3>
+				<p>진료예약현황을 조회</p>
+				<img src="https://cdn-icons-png.flaticon.com/512/747/747310.png"
+					alt="달력" />
+			</div>
 
-      <div class="round-card">
-        <a href="../archive/archive.jsp" style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">자료실</a>
-        <a href="../notice/notice.jsp" style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">공지사항</a>
-        <a href="../community/community.jsp" style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">커뮤니티</a>
-      </div>
-    </div>
-  </div>
+			<div class="card search-doctor">
+				<h3>
+					내 주변<br>병원 찾기
+				</h3>
+				<button
+					onclick="window.location.href='../find_hospital/map/map.html'">찾기</button>
+			</div>
+
+			<div class="round-card">
+				<a href="../archive/archive.jsp"
+					style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">자료실</a>
+				<a href="../notice/notice.jsp"
+					style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">공지사항</a>
+				<a href="../community/community.jsp"
+					style="text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; height: 100px;">커뮤니티</a>
+			</div>
+		</div>
+	</div>
 
   <div id="signupModal" class="modal" style="display:none;">
     <div class="modal-content">
@@ -75,7 +86,6 @@
   <div id="loginStatus" style="text-align: right; margin-top: 10px; padding-right: 20px;"></div>
 
   <script src="home.js"></script>
-
 
 
 </body>

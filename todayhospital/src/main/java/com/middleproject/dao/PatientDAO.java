@@ -22,7 +22,7 @@ public interface PatientDAO {
 
     // 환자 상세 정보 조회
     PatientDTO findByPatientId(String patientId);
-
+    
     // 이름, 연락처 등으로 사용자 조회 (비밀번호 찾기 등)
     PatientDTO findPatientByNameAndPhone(PatientDTO queryDto);
 }
