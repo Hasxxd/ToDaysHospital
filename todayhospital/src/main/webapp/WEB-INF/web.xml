@@ -1,57 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-                              https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
-          version="5.0"
-          id="WebApp_ID">
 
-  <display-name>todayhospital WebApp</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+	id="WebApp_ID" version="5.0">
+	
+	<display-name>todayhospital</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>home.do</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 매핑구조를 서블릿 하나당 다수의 매핑주소가 실행되는 일대 다 구조로 변경 -->
+	<servlet>
+		<servlet-name>MFrontController</servlet-name>
+		<servlet-class>net.daum.controller.MFrontController</servlet-class>
 
-  <!-- [1] 인코딩 필터: POST 한글 처리 -->
-  <filter>
-    <filter-name>EncodingFilter</filter-name>
-    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
+		<multipart-config>
+			<!-- <location>/upload</location> -->
+			<max-file-size>10485760</max-file-size> <!-- 10,485,760 바이트 => 10MB, 업로드되는 "단일 파일"의 최대 크기를 설정 -->
+			<max-request-size>52428800</max-request-size> <!-- 50MB, 전체 요청의 최대 크기 -->
+			<file-size-threshold>1048576</file-size-threshold> <!-- 1MB, 메모리와 디스크 저장 경계 -->
+		</multipart-config>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MFrontController</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- method post방식으로 전달되는 한글을 안깨지게 한다.  -->
+    <filter>
+        <filter-name>RequestEncoding</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
 
-  <filter-mapping>
-    <filter-name>EncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <!-- [2] FrontController 설정 -->
-  <servlet>
-    <servlet-name>MFrontController</servlet-name>
-    <servlet-class>com.middleproject.controller.MFrontController</servlet-class>
-    <load-on-startup>1</load-on-startup>
-
-    <!-- [2-1] 파일 업로드 설정 (multipart/form-data 대응) -->
-    <multipart-config>
-      <max-file-size>10485760</max-file-size>          <!-- 10MB -->
-      <max-request-size>52428800</max-request-size>    <!-- 50MB -->
-      <file-size-threshold>1048576</file-size-threshold> <!-- 1MB -->
-    </multipart-config>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>MFrontController</servlet-name>
-    <url-pattern>*.do</url-pattern>
-  </servlet-mapping>
-
-  <!-- [3] 초기 진입 JSP -->
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-  </welcome-file-list>
-
+    <filter-mapping>
+        <filter-name>RequestEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
 </web-app>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.daum.mappers.PatientMapper">
+	<select id="findAllPatients"
+		resultType="net.daum.dto.PatientDTO">
+		SELECT * FROM PATIENT
+	</select>
+	
+	<!-- [1] 로그인 인증 -->
+	<select id="loginCheck" parameterType="net.daum.dto.LoginDTO"
+		resultType="net.daum.dto.PatientDTO">
+        <![CDATA[
+            SELECT
+                PATIENT_ID,
+                PATIENT_LOGIN_ID,
+                PATIENT_NAME,
+                PATIENT_EMAIL,
+                PATIENT_STATE,
+                PATIENT_LOGIN_FAIL
+            FROM PATIENT
+            WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+            AND PATIENT_PW = #{patientPw}
+            AND NVL(PATIENT_LOGIN_FAIL, 0) < 5
+            AND PATIENT_STATE = 'Y'
+        ]]>
+	</select>
+
+	<!-- [2] 로그인 실패 횟수 증가 -->
+	<update id="incrementLoginFailCount" parameterType="string">
+		UPDATE PATIENT
+		SET PATIENT_LOGIN_FAIL = NVL(PATIENT_LOGIN_FAIL, 0) + 1
+		WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+	</update>
+
+	<!-- [3] 로그인 실패 횟수 초기화 -->
+	<update id="resetLoginFailCount" parameterType="string">
+		UPDATE PATIENT
+		SET PATIENT_LOGIN_FAIL = 0
+		WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+	</update>
+
+	<!-- [4] 계정 잠금 여부 확인 -->
+	<select id="isAccountLocked" parameterType="string"
+		resultType="int">
+		SELECT CASE
+		WHEN NVL(PATIENT_LOGIN_FAIL, 0) >= 5 THEN 1
+		ELSE 0
+		END
+		FROM PATIENT
+		WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+	</select>
+
+	<!-- [5] 사용자 기본 정보 조회 -->
+	<select id="findByLoginId" parameterType="string"
+		resultType="net.daum.dto.PatientDTO">
+		SELECT
+		PATIENT_ID,
+		PATIENT_LOGIN_ID,
+		PATIENT_NAME,
+		PATIENT_EMAIL,
+		PATIENT_STATE
+		FROM PATIENT
+		WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+	</select>
+
+	<!-- [6] 로그아웃 처리 로그 업데이트 -->
+	<update id="updateLogoutLog" parameterType="map">
+		UPDATE SYSTEM_LOG
+		SET LOG_DATE = SYSDATE,
+		LOG_STATUS = 'LOGOUT',
+		LOG_INFO = '사용자 로그아웃 처리'
+		WHERE PATIENT_ID = #{patientId}
+		AND LOG_STATUS = 'LOGIN'
+		AND LOG_DATE = (
+		SELECT MAX(LOG_DATE)
+		FROM SYSTEM_LOG
+		WHERE PATIENT_ID = #{patientId}
+		AND LOG_STATUS = 'LOGIN'
+		)
+	</update>
+
+</mapper>
