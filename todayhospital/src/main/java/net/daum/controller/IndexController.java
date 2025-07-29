@@ -22,7 +22,7 @@ public class IndexController implements Action {
 	    forward.setRedirect(false);
 
 	    if (id == null) {
-	        forward.setPath("/WEB-INF/view/home/home.jsp"); // ✅ 처음 진입 시 보여줄 페이지
+	        forward.setPath("/WEB-INF/view/home/home.jsp"); //  처음 진입 시 보여줄 페이지
 	    } 
 	    return forward;
 	}

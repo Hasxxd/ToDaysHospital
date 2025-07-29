@@ -92,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const left = (window.screen.width / 2) - (width / 2);
         const top = (window.screen.height / 2) - (height / 2);
         // 새 팝업 창을 엽니다. "../login/login.html" 경로가 중요합니다.
-        window.open("../total_login/total_Login/login.jsp", "loginPopup", `width=${width},height=${height},left=${left},top=${top},scrollbars=no,resizable=no`);
+        /*window.open("../../WEB-INF/total_login/total_Login/login.jsp", "loginPopup", `width=${width},height=${height},left=${left},top=${top},scrollbars=no,resizable=no`); */
+		window.open("/todayhospital/login.do", "loginPopup", `width=450,height=550,left=100,top=100,scrollbars=no,resizable=no`);
     };
 
     // --- 기존 페이지 로드 시 로그인 상태 확인 ---

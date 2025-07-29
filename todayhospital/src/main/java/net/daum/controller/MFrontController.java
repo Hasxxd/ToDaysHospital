@@ -34,7 +34,7 @@ public class MFrontController extends HttpServlet {
         // properties 파일 불러오기
         Properties prop = new Properties();
         FileInputStream fis = new FileInputStream(
-                request.getSession().getServletContext().getRealPath("WEB-INF/classes/daum.properties"));
+                request.getSession().getServletContext().getRealPath("daum.properties"));
         prop.load(fis);
         fis.close();
 
@@ -47,7 +47,7 @@ public class MFrontController extends HttpServlet {
 
         if (value.startsWith("execute")) {
             try {
-                StringTokenizer st = new StringTokenizer(value, "|");
+            	StringTokenizer st = new StringTokenizer(value.split("#")[0].trim(), "|");
                 st.nextToken(); // "execute"
                 String url_2 = st.nextToken(); // 컨트롤러 클래스 이름
 
