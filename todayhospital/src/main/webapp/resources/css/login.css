@@ -1,0 +1,13 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* 아이콘 이미지 스타일 통일 */
+.social-btn img {
+  display: inline-block;
+  object-fit: contain;
+}

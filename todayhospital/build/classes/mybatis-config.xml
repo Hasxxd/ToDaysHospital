@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- 공통 설정 -->
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+
+		<!-- 자동 camelCase 매핑 활성화 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+
+	</settings>
+
+	<!-- DTO 클래스 별칭 등록: 전체 패키지 스캔 방식 적용 -->
+	<typeAliases>
+		<package name="com.middleproject.dto" />
+	</typeAliases>
+
+
+	<!-- 환경 설정 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${db.driver}" />
+				<property name="url" value="${db.url}" />
+				<property name="username" value="${db.user}" />
+				<property name="password" value="${db.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- 매퍼 인터페이스 등록 -->
+	<mappers>
+			<mapper resource="net/daum/mappers/PatientMapper.xml" />
+			<!-- 
+			<mapper resource="net/daum/mappers/ReservationMapper.xml" />
+			<mapper resource="net/daum/mappers/SystemLogMapper.xml" />
+			<mapper resource="net/daum/mappers/AdminMapper.xml" />
+			<mapper resource="net/daum/mappers/HospitalMapper.xml" /> -->
+	</mappers>
+</configuration>
