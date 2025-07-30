@@ -1,0 +1,25 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f8f9fa;
+  padding: 30px;
+}
+.list-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+th {
+  background: #2c7be5;
+  color: white;
+}

@@ -1,0 +1,60 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.reservation-table th, .reservation-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.close {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.approve {
+  background-color: #4caf50;
+  color: white;
+}
+.reject {
+  background-color: #f44336;
+  color: white;
+}

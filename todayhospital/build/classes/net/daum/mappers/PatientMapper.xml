@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.daum.mappers.PatientMapper">
+
+    <!-- [1] 로그인 인증 -->
+    <select id="loginCheck"
+            parameterType="map"
+            resultType="net.daum.dto.MemberDTO">
+        <![CDATA[
+            SELECT
+                PATIENT_ID,
+                PATIENT_LOGIN_ID,
+                PATIENT_PW,
+                PATIENT_NAME,
+                PATIENT_EMAIL,
+                PATIENT_STATE,
+                NVL(PATIENT_LOGIN_FAIL, 0) AS loginFailCount
+            FROM PATIENT
+            WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+              AND PATIENT_PW = #{patientPw}
+        ]]>
+    </select>
+
+    <!-- [2] 로그인 실패 횟수 증가 -->
+    <update id="incrementLoginFailCount" parameterType="string">
+        UPDATE PATIENT
+        SET PATIENT_LOGIN_FAIL = NVL(PATIENT_LOGIN_FAIL, 0) + 1
+        WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+    </update>
+
+    <!-- [3] 로그인 실패 횟수 초기화 -->
+    <update id="resetLoginFailCount" parameterType="string">
+        UPDATE PATIENT
+        SET PATIENT_LOGIN_FAIL = 0
+        WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+    </update>
+
+    <!-- [4] 계정 잠금 여부 확인 -->
+    <select id="isAccountLocked"
+            parameterType="string"
+            resultType="int">
+        SELECT CASE
+                 WHEN NVL(PATIENT_LOGIN_FAIL, 0) >= 5 THEN 1
+                 ELSE 0
+               END
+        FROM PATIENT
+        WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+    </select>
+
+    <!-- [5] 로그인 ID로 사용자 조회 -->
+    <select id="findByLoginId"
+            parameterType="string"
+            resultType="net.daum.dto.MemberDTO">
+        SELECT
+            PATIENT_ID,
+            PATIENT_LOGIN_ID,
+            PATIENT_NAME,
+            PATIENT_EMAIL,
+            PATIENT_STATE
+        FROM PATIENT
+        WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+    </select>
+
+    <!-- [6] 이름 + 연락처 기반 사용자 조회 (비밀번호 찾기 등) -->
+    <select id="findPatientByNameAndPhone"
+            parameterType="net.daum.dto.MemberDTO"
+            resultType="net.daum.dto.MemberDTO">
+        SELECT
+            PATIENT_ID,
+            PATIENT_LOGIN_ID,
+            PATIENT_NAME,
+            PATIENT_PHONE,
+            PATIENT_EMAIL,
+            PATIENT_STATE
+        FROM PATIENT
+        WHERE PATIENT_NAME = #{patientName}
+          AND PATIENT_PHONE = #{patientPhone}
+    </select>
+
+    <!-- [7] 임시 비밀번호로 비밀번호 업데이트 -->
+    <update id="updatePwd" parameterType="net.daum.dto.MemberDTO">
+        UPDATE PATIENT
+        SET PATIENT_PW = #{patientPw}
+        WHERE PATIENT_LOGIN_ID = #{patientLoginId}
+    </update>
+
+</mapper>
