@@ -4,7 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.daum.mappers.PatientMapper">
-
+	
+	<select id="findAllPatients" resultType="net.daum.dto.MemberDTO">
+	    SELECT
+	        PATIENT_ID,
+	        PATIENT_LOGIN_ID,
+	        PATIENT_NAME,
+	        PATIENT_EMAIL,
+	        PATIENT_PHONE,
+	        PATIENT_STATE
+	    FROM PATIENT
+	</select>
+	
     <!-- [1] 로그인 인증 -->
     <select id="loginCheck"
             parameterType="map"
