@@ -13,38 +13,45 @@ public class MemberLoginOKController implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String id = request.getParameter("patientLoginId");
-        String pwd = request.getParameter("patientPw");
+        String loginId = request.getParameter("patientLoginId");
+        String rawPassword = request.getParameter("patientPw");
 
         MemberService memberService = new MemberServiceImpl();
-        MemberDTO loginUser = memberService.loginCheck(id);
+        MemberDTO member = memberService.loginCheck(loginId, rawPassword);
 
         ActionForward forward = new ActionForward();
 
-        if (loginUser == null) {
-            // 미가입자 처리
-            request.setAttribute("msg", "가입되지 않은 회원입니다.");
+        if (member == null) {
+            request.setAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/view/total_login/total_Login/login.jsp");
             return forward;
         }
 
-        // 비밀번호 암호화 후 비교
-        String encryptedInput = PwdChange.getPassWordToXEMD5String(pwd);
-        if (!encryptedInput.equals(loginUser.getMem_pwd())) {
-            request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
+        // 로그인 실패 횟수 검사
+        if (member.getLoginFailCount() >= 5) {
+            request.setAttribute("msg", "로그인 5회 초과로 계정이 잠겼습니다.");
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/view/total_login/total_Login/login.jsp");
             return forward;
         }
 
-        // 로그인 성공 → 세션 저장
+        // 계정 상태 확인
+        if (!"Y".equals(member.getPatientState())) {
+            request.setAttribute("msg", "비활성화된 계정입니다.");
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/view/total_login/total_Login/login.jsp");
+            return forward;
+        }
+
+        // 로그인 성공 → 세션 부여 및 실패횟수 초기화
         HttpSession session = request.getSession();
-        session.setAttribute("loginUser", loginUser);
+        session.setAttribute("loginUser", member);
 
-        // 팝업 내부 forward 처리
+        memberService.resetLoginFailCount(loginId);
+
         forward.setRedirect(false);
-        forward.setPath("/WEB-INF/view/common/login_success.jsp");
+        forward.setPath("/WEB-INF/view/total_login/total_Login/login_success.jsp");
         return forward;
     }
 }

@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import net.daum.dto.LoginDTO;
-import net.daum.dto.PatientDTO;
+import net.daum.dto.MemberDTO;
 
 public interface PatientMapper {
-    // DB 연결 확인용
-    List<PatientDTO> findAllPatients();
+
+    // 전체 사용자 조회 (테스트용)
+    List<MemberDTO> findAllPatients();
 
     // 로그인 인증
-    PatientDTO loginCheck(@Param("loginDTO") LoginDTO loginDTO);
+    MemberDTO loginCheck(@Param("patientLoginId") String patientLoginId,
+                         @Param("patientPw") String patientPw);
 
     // 로그인 실패 횟수 증가
     void incrementLoginFailCount(@Param("patientLoginId") String patientLoginId);
@@ -23,12 +24,17 @@ public interface PatientMapper {
     // 계정 잠금 여부 확인
     int isAccountLocked(@Param("patientLoginId") String patientLoginId);
 
-    // 로그인 ID로 회원 찾기 (패스워드 없이)
-    PatientDTO findByLoginId(@Param("patientLoginId") String patientLoginId);
+    // 로그인 ID로 회원 조회
+    MemberDTO findByLoginId(@Param("patientLoginId") String patientLoginId);
 
-    // [추가] 환자 PK 기반 조회
-    PatientDTO findByPatientId(@Param("patientId") String patientId);
+    // 환자 PK 기반 조회
+    MemberDTO findByPatientId(@Param("patientId") String patientId);
 
-    // [추가] 이름과 연락처 기반 환자 조회 (비밀번호 찾기 등)
-    PatientDTO findPatientByNameAndPhone(@Param("queryDto") PatientDTO queryDto);
+    // 이름 + 전화번호 기반 회원 조회 (비밀번호 찾기 등)
+    MemberDTO findByNameAndPhone(@Param("patientName") String patientName,
+                                 @Param("patientPhone") String patientPhone);
+
+    // 비밀번호 업데이트
+    void updatePassword(@Param("patientLoginId") String patientLoginId,
+                        @Param("patientPw") String patientPw);
 }
